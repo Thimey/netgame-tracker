@@ -1,7 +1,7 @@
 /*
-
+    This is the snippet to add to bookmarklet. Subscribes to relevent websocket events
+    for netgames secret-hits
 */
-
 
 javascript:(function(){
     function registerGameEvent(name) {
