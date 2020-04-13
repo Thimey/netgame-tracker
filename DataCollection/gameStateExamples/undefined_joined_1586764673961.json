@@ -1,0 +1,97 @@
+{
+    "client_timestamp": 1586764672886,
+    "server_timestamp": 1586764673941,
+    "room": {
+        "id": "CDWG",
+        "game_id": "secret-hitler",
+        "players": [
+            {
+                "id": "8fde4e99-b308-41e6-8c13-25f6276c837b",
+                "name": "Thimut"
+            },
+            {
+                "id": "4b4964b3-6179-47bb-bcca-18d04a48dfd9",
+                "name": "d"
+            },
+            {
+                "id": "d91fd194-3ec4-49d6-87ed-4cccbc32a49f",
+                "name": "s1"
+            },
+            {
+                "id": "9b3cd7fb-55e2-4f6f-9cb2-3714da7cdd0b",
+                "name": "S4"
+            },
+            {
+                "id": "f246958d-98cd-4d7e-837e-db026c371e07",
+                "name": "S"
+            }
+        ],
+        "clock": {
+            "server": 8,
+            "8fde4e99-b308-41e6-8c13-25f6276c837b": 9,
+            "4b4964b3-6179-47bb-bcca-18d04a48dfd9": 5,
+            "d91fd194-3ec4-49d6-87ed-4cccbc32a49f": 3,
+            "9b3cd7fb-55e2-4f6f-9cb2-3714da7cdd0b": 3,
+            "f246958d-98cd-4d7e-837e-db026c371e07": 3
+        },
+        "state": {
+            "phase": "propose",
+            "previous_phase": "check_outcome",
+            "num_enacted": {
+                "liberal": 1,
+                "fascist": 0
+            },
+            "deck": [
+                true,
+                false,
+                true,
+                false,
+                true,
+                true,
+                true,
+                false,
+                false,
+                false,
+                false,
+                false,
+                false,
+                true,
+                false,
+                false,
+                false
+            ],
+            "removed": 3,
+            "president": 1,
+            "refusals": 0,
+            "hitler": "9b3cd7fb-55e2-4f6f-9cb2-3714da7cdd0b",
+            "allegiance": {
+                "9b3cd7fb-55e2-4f6f-9cb2-3714da7cdd0b": false,
+                "f246958d-98cd-4d7e-837e-db026c371e07": false,
+                "d91fd194-3ec4-49d6-87ed-4cccbc32a49f": true,
+                "8fde4e99-b308-41e6-8c13-25f6276c837b": true,
+                "4b4964b3-6179-47bb-bcca-18d04a48dfd9": true
+            },
+            "executed": {
+                "9b3cd7fb-55e2-4f6f-9cb2-3714da7cdd0b": false,
+                "f246958d-98cd-4d7e-837e-db026c371e07": false,
+                "d91fd194-3ec4-49d6-87ed-4cccbc32a49f": false,
+                "8fde4e99-b308-41e6-8c13-25f6276c837b": false,
+                "4b4964b3-6179-47bb-bcca-18d04a48dfd9": false
+            },
+            "chancellor": null,
+            "votes": {
+                "8fde4e99-b308-41e6-8c13-25f6276c837b": true,
+                "4b4964b3-6179-47bb-bcca-18d04a48dfd9": true,
+                "d91fd194-3ec4-49d6-87ed-4cccbc32a49f": true,
+                "9b3cd7fb-55e2-4f6f-9cb2-3714da7cdd0b": false,
+                "f246958d-98cd-4d7e-837e-db026c371e07": true
+            },
+            "previous_president": 0,
+            "previous_chancellor": "4b4964b3-6179-47bb-bcca-18d04a48dfd9",
+            "last_enacted": true,
+            "ready": false
+        },
+        "created": 1586761125847,
+        "last_modified": 1586761330926
+    }
+}
