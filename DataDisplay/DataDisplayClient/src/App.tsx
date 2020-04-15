@@ -1,10 +1,11 @@
 import React from 'react'
 
+import LiveView from './Views/LiveView'
 
 function App() {
   return (
-    <div/>
+    <LiveView />
   )
 }
 
-export default App;
+export default App
