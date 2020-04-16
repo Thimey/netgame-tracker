@@ -9,9 +9,7 @@ const useStyles = makeStyles({
     }
 })
 
-interface Props {
-
-}
+interface Props {}
 
 const VoteRound: React.FC<Props> = () => {
     const classes = useStyles({})

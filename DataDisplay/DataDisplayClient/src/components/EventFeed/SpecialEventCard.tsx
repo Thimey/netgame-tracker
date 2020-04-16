@@ -3,7 +3,10 @@ import { makeStyles } from '@material-ui/styles'
 
 
 const useStyles = makeStyles({
-
+    container: {
+        border: '1px solid black',
+        marginBottom: '10px',
+    }
 })
 
 interface Props {}
@@ -13,7 +16,7 @@ const SpecialEventCard: React.FC<Props> = () => {
 
 
     return (
-        <div>
+        <div className={classes.container}>
             SpecialEventCard
         </div>
     )

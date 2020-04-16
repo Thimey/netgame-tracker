@@ -4,7 +4,18 @@ import { makeStyles } from '@material-ui/styles'
 import PlayerCard from './PlayerCard'
 
 const useStyles = makeStyles({
-
+    container: {
+        display: 'flex',
+        justifyContent: 'center',
+        flex: 1,
+    },
+    gameBoard: {
+        display: 'flex',
+        width: '80%',
+        height: 'fit-content',
+        flexDirection: 'column',
+        border: '1px solid black',
+    }
 })
 
 interface Props {}
@@ -14,13 +25,15 @@ const GameBoard: React.FC<Props> = () => {
 
 
     return (
-        <div>
-            <PlayerCard />
-            <PlayerCard />
-            <PlayerCard />
-            <PlayerCard />
-            <PlayerCard />
-            <PlayerCard />
+        <div className={classes.container}>
+            <div className={classes.gameBoard}>
+                <PlayerCard />
+                <PlayerCard />
+                <PlayerCard />
+                <PlayerCard />
+                <PlayerCard />
+                <PlayerCard />
+            </div>
         </div>
     )
 }

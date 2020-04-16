@@ -8,7 +8,10 @@ import VoteRoundList from './VoteRoundList'
 const useStyles = makeStyles({
     container: {
         display: 'flex',
-    }
+        width: '100%',
+        border: '1px solid black',
+        marginBottom: '10px',
+    },
 })
 
 interface Props {}
@@ -19,6 +22,7 @@ const RoundCard: React.FC<Props> = () => {
 
     return (
         <div className={classes.container}>
+
             <VoteRoundList />
             <RoundDetails />
         </div>
