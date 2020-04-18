@@ -1,0 +1,26 @@
+service: hits-data-collection-api
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  profile: ${env:AWS_PROFILE}
+  region: ${env:REGION}
+  stage: dev
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:PutItem
+      Resource:
+        - arn:aws:dynamodb:ap-southeast-2:972124391741:table/hitsEventData
+
+
+functions:
+  writeHitsEvent:
+    handler: src/postHitsEventHandler.postHitsEventHandler
+    events:
+      - http:
+          path: "/hits-event"
+          method: post
+          cors:
+            origin: '*'
+

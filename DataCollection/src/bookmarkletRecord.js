@@ -6,16 +6,13 @@
 javascript:(function(){
     function registerGameEvent(name) {
         window.netgames.socket.on(name, (eventData) => {
-            window.fetch('http://localhost:3000', {
+            window.fetch('https://5uytvuys8d.execute-api.ap-southeast-2.amazonaws.com/dev/hits-event', {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({
-                    gameEventName: name,
-                    data: eventData,
-                }),
+                body: JSON.stringify(eventData),
                 mode: 'cors'
             })
             .then((response) => {
@@ -24,13 +21,11 @@ javascript:(function(){
             .catch((err) => {
               console.error(err);
             });
-
         })
     }
 
     registerGameEvent('state');
-    registerGameEvent('register-player-interactions');
-    registerGameEvent('joined');
-    registerGameEvent('left');
+
+    alert('Registered events!');
 })();
 
