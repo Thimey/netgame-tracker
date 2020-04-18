@@ -1,7 +1,8 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/styles'
 
-import VoteRound from './VoteRound'
+import { VoteRound as VoteRoundType} from '../../../../types'
+import Vote from './Vote'
 
 const useStyles = makeStyles({
     container: {
@@ -12,20 +13,20 @@ const useStyles = makeStyles({
 })
 
 interface Props {
-
+    voteRound: VoteRoundType
 }
 
-const VoteRoundList: React.FC<Props> = () => {
+const VoteRound: React.FC<Props> = ({ voteRound: { votes } }) => {
     const classes = useStyles({})
 
 
     return (
         <div className={classes.container}>
-            <VoteRound />
-            <VoteRound />
-            <VoteRound />
+            {votes.map(vote => (
+                <Vote vote={vote} />
+            ))}
         </div>
     )
 }
 
-export default VoteRoundList
+export default VoteRound

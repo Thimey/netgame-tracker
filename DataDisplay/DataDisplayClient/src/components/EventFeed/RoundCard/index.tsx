@@ -1,8 +1,10 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/styles'
 
+import { Round} from '../../../types'
+
 import RoundDetails from './RoundDetails'
-import VoteRoundList from './VoteRoundList'
+import VoteRound from './VoteRound'
 
 
 const useStyles = makeStyles({
@@ -14,17 +16,17 @@ const useStyles = makeStyles({
     },
 })
 
-interface Props {}
+interface Props {
+    round: Round
+}
 
-const RoundCard: React.FC<Props> = () => {
+const RoundCard: React.FC<Props> = ({ round }) => {
     const classes = useStyles({})
-
 
     return (
         <div className={classes.container}>
-
-            <VoteRoundList />
-            <RoundDetails />
+            <VoteRound voteRound={round.voteRound} />
+            <RoundDetails round={round} />
         </div>
     )
 }
