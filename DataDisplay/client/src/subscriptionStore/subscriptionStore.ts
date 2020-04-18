@@ -70,7 +70,7 @@ export class SubscriptionStore {
 
         this.subscribers[subscriptionName].push(callback)
 
-        if (!this.connected && this.hasConnectionCredentials) {
+        if (!this.connected) {
             this.connect()
         }
 
@@ -154,9 +154,9 @@ export class SubscriptionStore {
     }
 
     private handleOnMessage = (messageEvent: MessageEvent) => {
-        const { topic, data }: Message = JSON.parse(messageEvent.data)
+        const message = JSON.parse(messageEvent.data)
 
-        this.publishMessage(topic, data)
+        this.publishMessage('hitsEvent', message)
     }
 
     private publishMessage = (subscriptionTopic: keyof SubscriptionMessageEvents, data: Message['data']) => {
@@ -211,9 +211,9 @@ export class SubscriptionStore {
         })
     }
 
-    private get hasConnectionCredentials() {
-        return !!(this.token && this.websocketEndpoint)
-    }
+    // private get hasConnectionCredentials() {
+    //     return !!(this.token && this.websocketEndpoint)
+    // }
 
     private get hasSubscribers() {
         return any(
