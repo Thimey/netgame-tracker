@@ -1,21 +1,11 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/styles'
 
-import PlayerCard from './PlayerCard'
+import PlayerBoard from './PlayerBoard'
+import ScoreAndDeck from './ScoreAndDeck'
 
 const useStyles = makeStyles({
-    container: {
-        display: 'flex',
-        justifyContent: 'center',
-        flex: 1,
-    },
-    gameBoard: {
-        display: 'flex',
-        width: '80%',
-        height: 'fit-content',
-        flexDirection: 'column',
-        border: '1px solid black',
-    }
+
 })
 
 interface Props {}
@@ -25,15 +15,8 @@ const GameBoard: React.FC<Props> = () => {
 
 
     return (
-        <div className={classes.container}>
-            <div className={classes.gameBoard}>
-                <PlayerCard />
-                <PlayerCard />
-                <PlayerCard />
-                <PlayerCard />
-                <PlayerCard />
-                <PlayerCard />
-            </div>
+        <div>
+            <PlayerBoard />
         </div>
     )
 }

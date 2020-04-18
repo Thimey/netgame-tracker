@@ -1,21 +1,31 @@
 
 export interface Player {
-    id: number
+    id: string
     name: string
 }
 
 export interface Game {
+    id: number
+    startTime: string
+    endTime: string
     events: (Round | SpecialEvent)[]
 }
 
 export interface Round {
     id: number
+    roundState: RoundState
     board: Board
     deck: Deck
     score: Score
     voteRound: VoteRound
     outcome: Card
 }
+
+enum RoundState {
+    Voting = 'VOTING',
+    ResolvingMission = 'RESOLVING_MISSION',
+    Complete = 'COMPLETE',
+} 
 
 export interface Board {
     id: number
@@ -47,10 +57,10 @@ export interface VoteRound {
 
 export interface Vote {
     id: number
-    president: Player
-    proposedChancellor: Player
-    for: Player[]
-    against: Player[]
+    president: Player | null
+    proposedChancellor: Player | null
+    ya: Player[]
+    nein: Player[]
 }
 
 export interface SpecialEvent {

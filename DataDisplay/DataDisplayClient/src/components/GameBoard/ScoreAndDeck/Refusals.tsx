@@ -3,23 +3,20 @@ import { makeStyles } from '@material-ui/styles'
 
 
 const useStyles = makeStyles({
-    container: {
-        display: 'flex',
-        flex: 1,
-    }
+
 })
 
 interface Props {}
 
-const VoteRound: React.FC<Props> = () => {
+const Refusals: React.FC<Props> = () => {
     const classes = useStyles({})
 
 
     return (
-        <div className={classes.container}>
-            VoteRound
+        <div>
+            Refusals
         </div>
     )
 }
 
-export default VoteRound
+export default Refusals
