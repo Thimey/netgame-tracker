@@ -16,7 +16,8 @@ const useStyles = makeStyles({
     }
 })
 
-interface Props {}
+interface Props {
+}
 
 const EventFeed: React.FC<Props> = () => {
     const classes = useStyles({})
@@ -24,10 +25,10 @@ const EventFeed: React.FC<Props> = () => {
 
     return (
         <div className={classes.container}>
-            <RoundCard />
+            {/* <RoundCard />
             <SpecialEventCard />
             <RoundCard />
-            <RoundCard />
+            <RoundCard /> */}
         </div>
     )
 }
