@@ -58,7 +58,7 @@ export const isCheckOutcomeState = (state: BaseEventState | CheckOutcomeEventSta
     )
 }
 
-export type GamePhase =  'vote' | 'president' | 'chancellor' | 'check_outcome'
+export type GamePhase =  'missionOutcome' | 'failedVote'
 
 
 export interface Player {

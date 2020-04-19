@@ -26,7 +26,7 @@ const EventFeed: React.FC<Props> = ({ states }) => {
     const classes = useStyles({})
 
     const checkOutcomeAndVoteEvents = states.filter(
-        state => state.phase === 'check_outcome' || state.phase === 'vote'
+        state => state.phase === 'failedVote' || state.phase === 'missionOutcome'
     )
 
     const getRounds = (states: EventState[]) => {
