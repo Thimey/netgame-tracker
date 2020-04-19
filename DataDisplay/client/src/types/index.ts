@@ -3,12 +3,6 @@ export interface GameState {
 }
 
 export interface GameEvent {
-    client_timestamp: number
-    server_timestamp: number
-    room: Room
-}
-
-export interface Room {
     id: string
     game_id: string
     players: Player[]
@@ -17,8 +11,10 @@ export interface Room {
         [key: string]: number
     }
     state: EventState
-    created: number
     last_modified: number
+    client_timestamp: number
+    server_timestamp: number
+    created: number
 }
 
 export type EventState = BaseEventState | CheckOutcomeEventState
@@ -52,9 +48,15 @@ export interface CheckOutcomeEventState extends BaseEventState {
     to_enact: number
 }
 
-export const isCheckOutcomeState = (state: BaseEventState | CheckOutcomeEventState): state is CheckOutcomeEventState => (
-    !!(state as CheckOutcomeEventState).to_enact
-)
+export const isCheckOutcomeState = (state: BaseEventState | CheckOutcomeEventState): state is CheckOutcomeEventState => {
+    if (!state) {
+        return false
+    }
+
+    return (
+        !!(state as CheckOutcomeEventState).to_enact
+    )
+}
 
 export type GamePhase =  'vote' | 'president' | 'chancellor' | 'check_outcome'
 
@@ -80,7 +82,7 @@ enum RoundState {
     Voting = 'VOTING',
     ResolvingMission = 'RESOLVING_MISSION',
     Complete = 'COMPLETE',
-} 
+}
 
 export interface Board {
     id: number

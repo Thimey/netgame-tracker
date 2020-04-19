@@ -5,7 +5,7 @@ import playerStore from './playerStore'
 import { GameState, GameEvent, Player } from './types'
 
 import LiveView from './Views/LiveView'
-import subscriptionStore from './subscriptionStore'
+import subscriptionStore, { isConnectionChangeEvent } from './subscriptionStore'
 
 class App extends React.Component<{}, GameState> {
 
@@ -14,32 +14,34 @@ class App extends React.Component<{}, GameState> {
     this.state = {
       events: []
     }
-
-
   }
 
-  players: Player[] = []
-
   componentDidMount() {
-
     subscriptionStore.initialise()
 
     subscriptionStore.subscribe('hitsEvent', this.eventHandler)
   }
 
   eventHandler = (event: any) => {
-    console.log('handler')
+    console.log('event', event)
+    if (isConnectionChangeEvent(event)) {
+      return
+    }
 
-    const gameEvent: GameEvent = JSON.parse(event)
+    const { data } = event
 
-    if (this.players.length === 0) {
-      playerStore.addPlayers(gameEvent.room.players)
+    if (!data) {
+      return
+    }
+
+    if (data && data.players && playerStore.players.length === 0) {
+      playerStore.addPlayers(data.players)
     }
 
     this.setState((prevState)=> ({
       events: [
         ...prevState.events,
-        gameEvent,
+        data,
       ]
     }))
   }

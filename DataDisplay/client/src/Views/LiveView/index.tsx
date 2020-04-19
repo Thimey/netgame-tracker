@@ -28,8 +28,8 @@ interface Props {
 const LiveView: React.FC<Props> = ({ events }) => {
     const classes = useStyles({})
 
-    const states = events.map(event => event.room.state)
-    const latestState = events[events.length - 1].room.state
+    const states = events.map(event => event.state)
+    const latestState = events[events.length - 1].state
 
 
     return (
