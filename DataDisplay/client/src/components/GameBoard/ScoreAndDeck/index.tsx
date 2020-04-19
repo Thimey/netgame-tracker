@@ -1,7 +1,7 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/styles'
 
-import { Score as ScoreType, Deck as DeckType } from '../../../types'
+import { Score as ScoreType } from '../../../types'
 
 import Deck from './Deck'
 import Score from './ScoreBoard'
@@ -19,22 +19,22 @@ const useStyles = makeStyles({
 
 interface Props {
     score: ScoreType
-    deck: DeckType
-    refusalCount: number
+    deckCount: number
+    refusals: number
 }
 
-const ScoreAndDeck: React.FC<Props> = ({ score, deck, refusalCount }) => {
+const ScoreAndDeck: React.FC<Props> = ({ score, deckCount, refusals }) => {
     const classes = useStyles({})
 
 
     return (
         <div className={classes.container}>
-            <Score />
+            <Score count={score.fascist} type='fascist' />
             <div>
-                <Deck />
-                <Refusals />
+                <Deck count={deckCount}/>
+                <Refusals count={refusals}/>
             </div>
-            <Score />
+            <Score count={score.liberal} type='liberal' />
         </div>
     )
 }

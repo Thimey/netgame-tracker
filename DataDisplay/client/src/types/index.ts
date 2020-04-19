@@ -1,3 +1,63 @@
+export interface GameState {
+    events: Event[]
+}
+
+export interface Event {
+    client_timestamp: number
+    server_timestamp: number
+    room: Room
+}
+
+export interface Room {
+    id: string
+    game_id: string
+    players: Player[]
+    clock: {
+        server: number
+        [key: string]: number
+    }
+    state: EventState
+    created: number
+    last_modified: number
+}
+
+export type EventState = BaseEventState | CheckOutcomeEventState
+
+export interface BaseEventState {
+    phase: GamePhase
+    previous_phase: GamePhase
+    num_enacted: Score
+    deck: boolean[]
+    removed: number
+    president: number
+    refusals: number
+    hitler: string
+    allegiance: {
+        [key: string]: boolean
+    }[]
+    executed: {
+        [key: string]: boolean
+    }[]
+    chancellor: string
+    votes: {
+        [key: string]: boolean
+    }[]
+    ready: boolean
+}
+
+export interface CheckOutcomeEventState extends BaseEventState {
+    previous_president: number
+    previous_chancellor: string
+    last_enacted: boolean
+    to_enact: number
+}
+
+export const isCheckOutcomeEvent = (event: BaseEventState | CheckOutcomeEventState): event is CheckOutcomeEventState => (
+    !!(event as CheckOutcomeEventState).to_enact
+)
+
+export type GamePhase =  'vote' | 'president' | 'chancellor' | 'check_outcome'
+
 
 export interface Player {
     id: string
@@ -15,7 +75,7 @@ export interface Round {
     id: number
     roundState: RoundState
     board: Board
-    deck: Deck
+    deck: boolean[]
     score: Score
     voteRound: VoteRound
     outcome: Card
@@ -38,25 +98,16 @@ export interface Board {
 
 export type Card = 'liberal' | 'fascist'
 
-export interface Deck {
-    id: number
-    cards: Card[]
-}
-
 export interface Score {
-    id: number
-    fascistCount: number
-    liberalCount: number
-    refusalCount: number
+    liberal: number
+    fascist: number
 }
 
 export interface VoteRound {
-    id: number
     votes: [Vote, Vote, Vote]
 }
 
 export interface Vote {
-    id: number
     president: Player | null
     proposedChancellor: Player | null
     ya: Player[]
@@ -64,7 +115,6 @@ export interface Vote {
 }
 
 export interface SpecialEvent {
-    id: number
     event: ExecutionEvent | InvestigateEvent | SpecialElection | LookAtNextThreeCards
 }
 

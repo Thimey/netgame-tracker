@@ -1,25 +1,11 @@
 import React from 'react'
 
-// import LiveView from './Views/LiveView'
+import { GameState, Event, Player } from './types'
+
+import LiveView from './Views/LiveView'
 import subscriptionStore from './subscriptionStore'
 
-// function App() {
-//   const [events, setEvents] = React.useState([])
-
-//   React.useEffect(() => {
-//       subscriptionStore.initialise()
-//   }, [])
-
-//   const eventHandler = React.useCallback((event) => {
-//     setEvents()
-//   }, [setEvents])
-
-//   return (
-//     <LiveView />
-//   )
-// }
-
-class App extends React.Component<{}, { events: any[] }> {
+class App extends React.Component<{}, GameState> {
 
   constructor(props: any) {
     super(props)
@@ -30,6 +16,8 @@ class App extends React.Component<{}, { events: any[] }> {
 
   }
 
+  players: Player[] = []
+
   componentDidMount() {
 
     subscriptionStore.initialise()
@@ -39,17 +27,26 @@ class App extends React.Component<{}, { events: any[] }> {
 
   eventHandler = (event: any) => {
     console.log('handler')
-    this.setState({
+
+    const gameEvent: Event = JSON.parse(event)
+
+    if (this.players.length === 0) {
+      this.players = gameEvent.room.players
+    }
+
+    this.setState((prevState)=> ({
       events: [
-        ...this.state.events,
-        event,
+        ...prevState.events,
+        gameEvent,
       ]
-    })
+    }))
   }
 
   render () {
     return (
       <div>
+        <LiveView players={this.players} events={this.state.events}/>
+
         {
           this.state.events.map(e => (
             <p>

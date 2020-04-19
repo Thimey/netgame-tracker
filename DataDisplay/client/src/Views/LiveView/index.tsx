@@ -1,6 +1,8 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/styles'
 
+import { Event, Player } from '../../types'
+
 import EventFeed from '../../components/EventFeed'
 import GameBoard from '../../components/GameBoard'
 
@@ -19,16 +21,24 @@ const useStyles = makeStyles({
     }
 })
 
-interface Props {}
+interface Props {
+    players: Player[]
+    events: Event[]
+}
 
-const LiveView: React.FC<Props> = () => {
+const LiveView: React.FC<Props> = ({ players, events }) => {
     const classes = useStyles({})
+
+    const latestState = events[events.length - 1].room.state
 
 
     return (
         <div className={classes.container}>
-            <EventFeed />
-            <GameBoard />
+            <EventFeed events={events}/>
+            <GameBoard
+                players={players}
+                latestState={latestState}
+            />
         </div>
     )
 }

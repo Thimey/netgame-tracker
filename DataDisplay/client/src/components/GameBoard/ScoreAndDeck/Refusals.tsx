@@ -6,15 +6,17 @@ const useStyles = makeStyles({
 
 })
 
-interface Props {}
+interface Props {
+    count: number
+}
 
-const Refusals: React.FC<Props> = () => {
+const Refusals: React.FC<Props> = ({ count }) => {
     const classes = useStyles({})
 
 
     return (
         <div>
-            Refusals
+            {`Failed votes: ${count}`}
         </div>
     )
 }

@@ -1,20 +1,22 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/styles'
 
-
 const useStyles = makeStyles({
 
 })
 
-interface Props {}
+interface Props {
+    count: number
+    type: string
+}
 
-const ScoreBoard: React.FC<Props> = () => {
+const ScoreBoard: React.FC<Props> = ({ count, type }) => {
     const classes = useStyles({})
 
 
     return (
         <div>
-            ScoreBoard
+            <span>{`${type}: ${count}`}</span>
         </div>
     )
 }
