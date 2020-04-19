@@ -6,15 +6,17 @@ const useStyles = makeStyles({
 
 })
 
-interface Props {}
+interface Props {
+    count: number
+}
 
-const Deck: React.FC<Props> = () => {
+const Deck: React.FC<Props> = ({ count }) => {
     const classes = useStyles({})
 
 
     return (
         <div>
-            Deck
+            {`Deck count: ${count}`}
         </div>
     )
 }
