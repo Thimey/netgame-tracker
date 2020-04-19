@@ -21,6 +21,5 @@ functions:
       - http:
           path: "/hits-event"
           method: post
-          origin: 'https://netgames.io'
-
+          cors: true
 
