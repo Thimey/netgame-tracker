@@ -1,7 +1,9 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/styles'
 
-import { Vote as VoteType, Player } from '../../../../types'
+import playerStore from '../../../../playerStore'
+
+import { BaseEventState, Player } from '../../../../types'
 
 const useStyles = makeStyles({
     container: {
@@ -21,7 +23,7 @@ const useStyles = makeStyles({
 })
 
 interface Props {
-    vote: VoteType
+    vote: BaseEventState
 }
 
 interface PlayerListProps {
@@ -33,9 +35,8 @@ const Vote: React.FC<Props> = (
     {
         vote: {
             president,
-            proposedChancellor,
-            ya,
-            nein,
+            chancellor,
+            votes,
         }
     }) => {
     const classes = useStyles({})
@@ -53,24 +54,28 @@ const Vote: React.FC<Props> = (
         </div>
     )
 
-    const didVoteHappen = president && proposedChancellor
+    const players = playerStore.players
+
+    const yaVoters = Object.keys(votes).reduce((voters, id) => {
+        if (votes[id]) {
+            const player = players.find(player => player.id === id)
+
+            return [...voters, player]
+        }
+
+        return voters
+    }, [] as any[])
 
     return (
         <div className={classes.container}>
-            {
-                didVoteHappen && (
-                    <>
-                    <div className={classes.voteOutcome}>
-                        <PlayerList players={ya}/>
-                        <PlayerList players={nein}/>
-                    </div>
-                    <div className={classes.voteDetails}>
-                        <span>{`President: ${president}`}</span>
-                        <span>{`Proposed chancellor: ${proposedChancellor}`}</span>
-                    </div>
-                    </>
-                )
-            }
+            <div className={classes.voteOutcome}>
+                <PlayerList players={yaVoters}/>
+                <PlayerList players={players.filter(player => yaVoters.find(yV => yV.id !== player.id))}/>
+            </div>
+            <div className={classes.voteDetails}>
+                <span>{`President: ${president}`}</span>
+                <span>{`Proposed chancellor: ${chancellor}`}</span>
+            </div>
         </div>
     )
 }

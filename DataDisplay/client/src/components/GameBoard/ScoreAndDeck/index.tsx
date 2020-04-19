@@ -19,11 +19,12 @@ const useStyles = makeStyles({
 
 interface Props {
     score: ScoreType
-    deckCount: number
+    deck: boolean[]
+    removed: number
     refusals: number
 }
 
-const ScoreAndDeck: React.FC<Props> = ({ score, deckCount, refusals }) => {
+const ScoreAndDeck: React.FC<Props> = ({ score, deck, removed, refusals }) => {
     const classes = useStyles({})
 
 
@@ -31,7 +32,7 @@ const ScoreAndDeck: React.FC<Props> = ({ score, deckCount, refusals }) => {
         <div className={classes.container}>
             <Score count={score.fascist} type='fascist' />
             <div>
-                <Deck count={deckCount}/>
+                <Deck count={deck.length - removed}/>
                 <Refusals count={refusals}/>
             </div>
             <Score count={score.liberal} type='liberal' />

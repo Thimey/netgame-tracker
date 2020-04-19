@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { makeStyles } from '@material-ui/styles'
 
-import { Player, EventState, isCheckOutcomeEvent } from '../../types'
+import { Player, EventState, isCheckOutcomeState } from '../../types'
 
 import PlayerBoard from './PlayerBoard'
 import ScoreAndDeck from './ScoreAndDeck'
@@ -11,17 +11,16 @@ const useStyles = makeStyles({
 })
 
 interface Props {
-    players: Player[]
     latestState: EventState
 }
 
-const GameBoard: React.FC<Props> = ({ players, latestState }) => {
+const GameBoard: React.FC<Props> = ({ latestState }) => {
     const classes = useStyles({})
 
     const [previousElectedPresident, setPreviousElectedPresident] = useState<number | null>(null)
     const [previousElectedChancellor, setPreviousElectedChancellor] = useState<string | null>(null)
 
-    if (isCheckOutcomeEvent(latestState)) {
+    if (isCheckOutcomeState(latestState)) {
         setPreviousElectedPresident(latestState.previous_president)
         setPreviousElectedChancellor(latestState.previous_chancellor)
 
@@ -31,17 +30,15 @@ const GameBoard: React.FC<Props> = ({ players, latestState }) => {
 
     const { deck, removed, num_enacted, refusals} = latestState
 
-    const deckCount = deck.length - removed
-
     return (
         <div>
             <ScoreAndDeck
-                deckCount={deckCount}
+                deck={deck}
+                removed={removed}
                 score={num_enacted}
                 refusals={refusals}
             />
             <PlayerBoard
-                players={players}
                 president={president}
                 previousElectedPresident={previousElectedPresident}
                 previousElectedChancellor={previousElectedChancellor}

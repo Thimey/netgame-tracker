@@ -25,8 +25,8 @@ const RoundCard: React.FC<Props> = ({ round }) => {
 
     return (
         <div className={classes.container}>
-            <VoteRound voteRound={round.voteRound} />
-            <RoundDetails round={round} />
+            <VoteRound votes={round.votes} />
+            <RoundDetails outcome={round.outcome} />
         </div>
     )
 }

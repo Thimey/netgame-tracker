@@ -1,6 +1,8 @@
 import React from 'react'
 
-import { GameState, Event, Player } from './types'
+import playerStore from './playerStore'
+
+import { GameState, GameEvent, Player } from './types'
 
 import LiveView from './Views/LiveView'
 import subscriptionStore from './subscriptionStore'
@@ -28,10 +30,10 @@ class App extends React.Component<{}, GameState> {
   eventHandler = (event: any) => {
     console.log('handler')
 
-    const gameEvent: Event = JSON.parse(event)
+    const gameEvent: GameEvent = JSON.parse(event)
 
     if (this.players.length === 0) {
-      this.players = gameEvent.room.players
+      playerStore.addPlayers(gameEvent.room.players)
     }
 
     this.setState((prevState)=> ({
@@ -43,16 +45,17 @@ class App extends React.Component<{}, GameState> {
   }
 
   render () {
+
     return (
       <div>
-        <LiveView players={this.players} events={this.state.events}/>
-
         {
-          this.state.events.map(e => (
-            <p>
-              {`${JSON.stringify(e, undefined, 4).substr(0, 20)}....`}
-            </p>
-          ))
+          this.state.events.length > 0
+            ? (
+              <LiveView events={this.state.events}/>
+            )
+            : (
+              <h1>Waiting for game to start</h1>
+            )
         }
       </div>
     )

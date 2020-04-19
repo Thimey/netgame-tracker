@@ -1,10 +1,9 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/styles'
 
-import { Event, isCheckOutcomeEvent } from '../../types'
+import { EventState, isCheckOutcomeState, Round } from '../../types'
 
 import RoundCard from './RoundCard'
-import SpecialEventCard from './SpecialEventCard'
 
 
 const useStyles = makeStyles({
@@ -19,38 +18,46 @@ const useStyles = makeStyles({
 })
 
 interface Props {
-    events: Event[]
+    states: EventState[]
 }
 
-interface Round {
-    votes: Event[]
-    outcome: Event
-}
 
-const EventFeed: React.FC<Props> = ({ events }) => {
+const EventFeed: React.FC<Props> = ({ states }) => {
     const classes = useStyles({})
 
-    const checkOutcomeAndVoteEvents = events.filter(
-        event => event.room.state.phase === 'check_outcome' || event.room.state.phase === 'vote'
+    const checkOutcomeAndVoteEvents = states.filter(
+        state => state.phase === 'check_outcome' || state.phase === 'vote'
     )
 
-    const getGroupedEvents = (events: Event[]) => {
-        events.reduce((rounds, event) => {
-            const { room: { state } } = event
+    const getRounds = (states: EventState[]) => {
+        let voteCount = 0
+        const rounds: Round[] = []
 
-            if (!isCheckOutcomeEvent(state)) {
+        states.forEach((state, index) => {
+            if (!isCheckOutcomeState(state)) {
+                voteCount += 1
 
+                return
             }
 
+            rounds.push({
+                outcome: state,
+                votes: [...states.slice(index - voteCount, index)]
+            })
+
+            voteCount = 0
         })
+
+        return rounds
     }
 
     return (
         <div className={classes.container}>
-            {/* <RoundCard />
-            <SpecialEventCard />
-            <RoundCard />
-            <RoundCard /> */}
+            {
+                getRounds(checkOutcomeAndVoteEvents).map(round => (
+                    <RoundCard round={round} />
+                ))
+            }
         </div>
     )
 }

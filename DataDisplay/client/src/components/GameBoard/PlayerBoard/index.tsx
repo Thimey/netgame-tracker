@@ -1,7 +1,7 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/styles'
 
-import { Player } from '../../../types'
+import playerStore from '../../../playerStore'
 
 import PlayerCard from './PlayerCard'
 
@@ -21,14 +21,12 @@ const useStyles = makeStyles({
 })
 
 interface Props {
-    players: Player[]
     president: number | null
     previousElectedPresident: number | null
     previousElectedChancellor: string | null
 }
 
 const GameBoard: React.FC<Props> = ({
-    players,
     president,
     previousElectedPresident,
     previousElectedChancellor,
@@ -40,7 +38,7 @@ const GameBoard: React.FC<Props> = ({
         <div className={classes.container}>
             <div className={classes.gameBoard}>
                 {
-                    players.map((player, index) => {
+                    playerStore.players.map((player, index) => {
                         const isPresident = president === index
                         const isPreviousPresident = previousElectedPresident === index
                         const isPreviousChancelor = previousElectedChancellor === player.id

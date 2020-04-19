@@ -1,7 +1,7 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/styles'
 
-import { VoteRound as VoteRoundType} from '../../../../types'
+import { BaseEventState } from '../../../../types'
 import Vote from './Vote'
 
 const useStyles = makeStyles({
@@ -13,10 +13,10 @@ const useStyles = makeStyles({
 })
 
 interface Props {
-    voteRound: VoteRoundType
+    votes: BaseEventState[]
 }
 
-const VoteRound: React.FC<Props> = ({ voteRound: { votes } }) => {
+const VoteRound: React.FC<Props> = ({ votes }) => {
     const classes = useStyles({})
 
 
