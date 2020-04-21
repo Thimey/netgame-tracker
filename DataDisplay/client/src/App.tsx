@@ -1,11 +1,12 @@
 import React from 'react'
 
-import playerStore from './playerStore'
-
 import { GameState, GameEvent, Player } from './types'
 
+import playerStore from './playerStore'
 import LiveView from './Views/LiveView'
 import subscriptionStore, { isConnectionChangeEvent } from './subscriptionStore'
+
+import { events } from './testEvents'
 
 class App extends React.Component<{}, GameState> {
 
@@ -17,9 +18,9 @@ class App extends React.Component<{}, GameState> {
   }
 
   componentDidMount() {
-    subscriptionStore.initialise()
+    // subscriptionStore.initialise()
 
-    subscriptionStore.subscribe('hitsEvent', this.eventHandler)
+    // subscriptionStore.subscribe('hitsEvent', this.eventHandler)
   }
 
   eventHandler = (event: any) => {
@@ -51,9 +52,9 @@ class App extends React.Component<{}, GameState> {
     return (
       <div>
         {
-          this.state.events.length > 0
+          events.length > 0
             ? (
-              <LiveView events={this.state.events}/>
+              <LiveView events={events.map(e => e.data)} />
             )
             : (
               <h1>Waiting for game to start</h1>

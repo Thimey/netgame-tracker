@@ -1,4 +1,4 @@
-export const test = [
+export const events = [
     {
         gameId: 'DRCR',
         data: {
@@ -194,109 +194,6 @@ export const test = [
           game_id: 'secret-hitler'
         },
         timestamp: 1587290809817
-      },
-      {
-        gameId: 'DRCR',
-        data: {
-          players: [
-            {
-              name: 'MEGADOOLE',
-              id: 'e2cbf175-3f50-4cba-987f-f43b130e6fae'
-            },
-            {
-              name: 'loff',
-              id: 'a30e67e9-d583-4ed8-aea8-b561742f9241'
-            },
-            {
-              name: 'loff2',
-              id: '6ba9b063-129f-4fde-85a5-e4980225abbf'
-            },
-            {
-              name: 'dooles',
-              id: 'cc1e1890-2e83-4a7f-bda2-882b3818fdbb'
-            },
-            {
-              name: 'oily',
-              id: '7b978bfb-094d-4824-b98b-f1c10ab0acd0'
-            }
-          ],
-          created: 1587289497553,
-          id: 'DRCR',
-          clock: {
-            server: 12,
-            'a30e67e9-d583-4ed8-aea8-b561742f9241': 7,
-            '6ba9b063-129f-4fde-85a5-e4980225abbf': 5,
-            'e2cbf175-3f50-4cba-987f-f43b130e6fae': 9,
-            '7b978bfb-094d-4824-b98b-f1c10ab0acd0': 7,
-            'cc1e1890-2e83-4a7f-bda2-882b3818fdbb': 12
-          },
-          state: {
-            phase: 'president',
-            previous_chancellor: 'a30e67e9-d583-4ed8-aea8-b561742f9241',
-            previous_president: 3,
-            last_enacted: false,
-            deck: [
-              false,
-              false,
-              false,
-              false,
-              true,
-              true,
-              false,
-              false,
-              true,
-              false,
-              false,
-              true,
-              true,
-              false,
-              false,
-              true,
-              false
-            ],
-            refusals: 1,
-            previous_phase: 'vote',
-            allegiance: {
-              'a30e67e9-d583-4ed8-aea8-b561742f9241': false,
-              '6ba9b063-129f-4fde-85a5-e4980225abbf': true,
-              'e2cbf175-3f50-4cba-987f-f43b130e6fae': true,
-              '7b978bfb-094d-4824-b98b-f1c10ab0acd0': false,
-              'cc1e1890-2e83-4a7f-bda2-882b3818fdbb': true
-            },
-            executed: {
-              'a30e67e9-d583-4ed8-aea8-b561742f9241': false,
-              '6ba9b063-129f-4fde-85a5-e4980225abbf': false,
-              'e2cbf175-3f50-4cba-987f-f43b130e6fae': false,
-              '7b978bfb-094d-4824-b98b-f1c10ab0acd0': false,
-              'cc1e1890-2e83-4a7f-bda2-882b3818fdbb': false
-            },
-            vote_pass: true,
-            hitler: 'a30e67e9-d583-4ed8-aea8-b561742f9241',
-            chancellor: '7b978bfb-094d-4824-b98b-f1c10ab0acd0',
-            removed: 6,
-            ready: false,
-            num_enacted: {
-              fascist: 1,
-              liberal: 0
-            },
-            votes: {
-              'a30e67e9-d583-4ed8-aea8-b561742f9241': true,
-              '6ba9b063-129f-4fde-85a5-e4980225abbf': false,
-              'e2cbf175-3f50-4cba-987f-f43b130e6fae': true,
-              '7b978bfb-094d-4824-b98b-f1c10ab0acd0': true,
-              'cc1e1890-2e83-4a7f-bda2-882b3818fdbb': true
-            },
-            policy_options: [
-              false,
-              true,
-              true
-            ],
-            president: 0
-          },
-          last_modified: 1587291197404,
-          game_id: 'secret-hitler'
-        },
-        timestamp: 1587291197582
       },
       {
         gameId: 'DRCR',

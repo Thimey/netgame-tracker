@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { makeStyles } from '@material-ui/styles'
 
-import { Player, EventState, isCheckOutcomeState } from '../../types'
+import { Player, EventState } from '../../types'
 
 import PlayerBoard from './PlayerBoard'
 import ScoreAndDeck from './ScoreAndDeck'
@@ -20,11 +20,11 @@ const GameBoard: React.FC<Props> = ({ latestState }) => {
     const [previousElectedPresident, setPreviousElectedPresident] = useState<number | null>(null)
     const [previousElectedChancellor, setPreviousElectedChancellor] = useState<string | null>(null)
 
-    if (isCheckOutcomeState(latestState)) {
-        setPreviousElectedPresident(latestState.previous_president)
-        setPreviousElectedChancellor(latestState.previous_chancellor)
+    // if (latestState.phase === 'missionOutcome') {
+    //     setPreviousElectedPresident(latestState.previous_president)
+    //     setPreviousElectedChancellor(latestState.previous_chancellor)
 
-    }
+    // }
 
     const president = latestState.president
 

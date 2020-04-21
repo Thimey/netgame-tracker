@@ -1,7 +1,7 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/styles'
 
-import { CheckOutcomeEventState } from '../../../types'
+import { EventState } from '../../../types'
 
 import ScoreAndDeck from '../../GameBoard/ScoreAndDeck'
 
@@ -13,7 +13,7 @@ const useStyles = makeStyles({
 })
 
 interface Props {
-    outcome: CheckOutcomeEventState
+    outcome: EventState
 }
 
 const RoundDetails: React.FC<Props> = ({ outcome: {
