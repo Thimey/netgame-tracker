@@ -26,16 +26,26 @@ interface Props {
 const VoteRound: React.FC<Props> = ({ round }) => {
     const classes = useStyles({})
 
-    const chancellors = round.reduce((chancellors, event) => {
-        // the secondLastVoteWithChancellor contains the chancellor for the susequent failedVote
-        // and the missionOutcome (a successful vote or flip) has its own chancellor
-        if (event.phase !== 'failedVote') {
-            return [...chancellors, event.chancellor as string]
-        }
+    const getChancellors = () => {
+        let isNewVoteRound = true
+        let chancellors: string[] = []
+
+        round.forEach(event => {
+            // the secondLastVoteWithChancellor contains the chancellor for the susequent failedVote
+            // and the missionOutcome (a successful vote or flip) has its own chancellor
+            if (event.phase === 'secondLastVoteWithChancellor' && isNewVoteRound) {
+                chancellors.push(event.chancellor as string)
+                isNewVoteRound = false
+            } else if (event.phase === 'missionOutcome') {
+                chancellors.push(event.chancellor as string)
+                isNewVoteRound = true
+            }
+        })
 
         return chancellors
-    }, [] as string[])
+    }
 
+    const chancellors = getChancellors()
     const votingRounds = round.filter(event => event.phase !== 'secondLastVoteWithChancellor')
 
     console.log('voteRound round d', round)

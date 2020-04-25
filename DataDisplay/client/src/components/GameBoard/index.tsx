@@ -27,11 +27,11 @@ const GameBoard: React.FC<Props> = ({ latestState }) => {
     const [previousElectedPresident, setPreviousElectedPresident] = useState<number | null>(null)
     const [previousElectedChancellor, setPreviousElectedChancellor] = useState<string | null>(null)
 
-    // if (latestState.phase === 'missionOutcome') {
-    //     setPreviousElectedPresident(latestState.previous_president)
-    //     setPreviousElectedChancellor(latestState.previous_chancellor)
+    if (latestState.phase === 'missionOutcome') {
+        setPreviousElectedPresident(latestState.previous_president)
+        setPreviousElectedChancellor(latestState.previous_chancellor)
 
-    // }
+    }
 
     const president = latestState.president
 
