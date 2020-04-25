@@ -5,24 +5,26 @@ import { EventState } from '../../../../types'
 import Vote from './Vote'
 
 const useStyles = makeStyles({
-    container: {
+    voteRoundContainer: {
         display: 'flex',
-        flexDirection: 'column',
-        width: '50%',
+        flexDirection: 'column-reverse',
+        justifyContent: 'flex-end',
+        width: '60%',
     }
 })
 
 interface Props {
-    votes: EventState[]
+    round: EventState[]
 }
 
-const VoteRound: React.FC<Props> = ({ votes }) => {
+const VoteRound: React.FC<Props> = ({ round }) => {
     const classes = useStyles({})
 
+    console.log('voteRound round d', round)
 
     return (
-        <div className={classes.container}>
-            {votes.map(vote => (
+        <div className={classes.voteRoundContainer}>
+            {round.map(vote => (
                 <Vote vote={vote} />
             ))}
         </div>

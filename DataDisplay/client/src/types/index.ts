@@ -55,10 +55,7 @@ export interface Game {
     events: (Round | SpecialEvent)[]
 }
 
-export interface Round {
-    votes: EventState[]
-    outcome: EventState
-}
+export type Round = EventState[]
 
 enum RoundState {
     Voting = 'VOTING',

@@ -9,8 +9,8 @@ import RoundCard from './RoundCard'
 const useStyles = makeStyles({
     container: {
         display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'flex-start',
+        flexDirection: 'column-reverse',
+        justifyContent: 'flex-end',
         width: '70%',
         border: '1px solid black',
         padding: '4px',
@@ -40,16 +40,16 @@ const EventFeed: React.FC<Props> = ({ states }) => {
                 return
             }
 
-            rounds.push({
-                outcome: state,
-                votes: [...states.slice(index - voteCount, index)]
-            })
+            // is a missionOutcome = end of round
+            rounds.push([...states.slice(index - voteCount, index + 1)])
 
             voteCount = 0
         })
 
         return rounds
     }
+
+    console.log('rounds', getRounds(checkOutcomeAndVoteEvents))
 
     return (
         <div className={classes.container}>
