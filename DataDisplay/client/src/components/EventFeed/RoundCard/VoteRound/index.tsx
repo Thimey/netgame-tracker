@@ -10,6 +10,12 @@ const useStyles = makeStyles({
         flexDirection: 'column-reverse',
         justifyContent: 'flex-end',
         width: '60%',
+        '& > *': {
+            marginBottom: '0.5rem',
+        },
+        '& > :first-child': {
+            marginBottom: 0,
+        },
     }
 })
 

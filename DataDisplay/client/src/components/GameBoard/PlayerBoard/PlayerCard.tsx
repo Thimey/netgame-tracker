@@ -1,8 +1,16 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/styles'
+import classnames from 'classnames'
+
+import Typography from '@material-ui/core/Typography'
 
 
 const useStyles = makeStyles({
+    root: {
+        paddingTop: '0.5rem',
+        paddingBottom: '0.5rem',
+        border: '1px solid #464545',
+    },
     canPropose: {
         textAlign: 'center',
         flex: 1,
@@ -33,9 +41,13 @@ const PlayerCard: React.FC<Props> = ({
     const canPropose = !isPresident && !isPreviousChancelor && !isPreviousPresident
 
     return (
-        <div className={canPropose ? classes.canPropose : classes.cannotPropose}>
-            {`${name}${isPresident ? ' (pres)' : ''}`}
-        </div>
+        <Typography noWrap className={classnames(classes.root, {
+            [classes.canPropose]: canPropose,
+            [classes.cannotPropose]: !canPropose,
+        })}
+        >
+            {`${isPresident ? '👑  ': ''}${name}`}
+        </Typography>
     )
 }
 

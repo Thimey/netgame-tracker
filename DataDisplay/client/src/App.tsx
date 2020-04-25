@@ -1,19 +1,27 @@
 import React from 'react'
+import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles'
 
 import { GameState, GameEvent, Player } from './types'
 
+import Header from './components/Header'
 import playerStore from './playerStore'
 import LiveView from './Views/LiveView'
 import subscriptionStore, { isConnectionChangeEvent } from './subscriptionStore'
 
-// import { events } from './testEvents'
+import { events } from './testEvents'
+
+const hitsTheme = createMuiTheme({
+  palette: {
+    type: 'dark',
+  }
+})
 
 class App extends React.Component<{}, GameState> {
 
   constructor(props: any) {
     super(props)
     this.state = {
-      events: []
+      events: events.map(e => e.data)
     }
   }
 
@@ -52,7 +60,8 @@ class App extends React.Component<{}, GameState> {
     console.log(this.state.events)
 
     return (
-      <div>
+      <ThemeProvider theme={hitsTheme}>
+        <Header />
         {
           this.state.events.length > 0
             ? (
@@ -62,7 +71,7 @@ class App extends React.Component<{}, GameState> {
               <h1>Waiting for game to start</h1>
             )
         }
-      </div>
+      </ThemeProvider>
     )
   }
 }

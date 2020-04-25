@@ -1,5 +1,6 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/styles'
+import Typography from '@material-ui/core/Typography'
 
 
 const useStyles = makeStyles({
@@ -15,9 +16,9 @@ const Deck: React.FC<Props> = ({ count }) => {
 
 
     return (
-        <div>
+        <Typography >
             {`Deck count: ${count}`}
-        </div>
+        </Typography>
     )
 }
 

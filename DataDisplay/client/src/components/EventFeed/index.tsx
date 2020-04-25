@@ -11,9 +11,9 @@ const useStyles = makeStyles({
         display: 'flex',
         flexDirection: 'column-reverse',
         justifyContent: 'flex-end',
-        width: '70%',
-        border: '1px solid black',
-        padding: '4px',
+        '& > *': {
+            marginBottom: '1rem',
+        },
     }
 })
 

@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import { makeStyles } from '@material-ui/styles'
+import Paper from '@material-ui/core/Paper'
+
 
 import { Player, EventState } from '../../types'
 
@@ -7,7 +9,9 @@ import PlayerBoard from './PlayerBoard'
 import ScoreAndDeck from './ScoreAndDeck'
 
 const useStyles = makeStyles({
-
+    container: {
+        padding: '1rem',
+    }
 })
 
 interface Props {
@@ -31,7 +35,7 @@ const GameBoard: React.FC<Props> = ({ latestState }) => {
     const { deck, removed, num_enacted, refusals} = latestState
 
     return (
-        <div>
+        <Paper className={classes.container}>
             <ScoreAndDeck
                 deck={deck}
                 removed={removed}
@@ -43,7 +47,7 @@ const GameBoard: React.FC<Props> = ({ latestState }) => {
                 previousElectedPresident={previousElectedPresident}
                 previousElectedChancellor={previousElectedChancellor}
             />
-        </div>
+        </Paper>
     )
 }
 
