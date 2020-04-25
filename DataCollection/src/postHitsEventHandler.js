@@ -6,6 +6,10 @@ const documentClient = new AWS.DynamoDB.DocumentClient({ apiVersion: '2012-10-08
 const eventTableName = 'hitsEventData'
 
 function getNewEventPhase(phase) {
+    if (phase === 'vote') {
+        return 'secondLastVoteWithChancellor'
+    }
+
     if (phase === 'propose') {
         return 'failedVote'
     }
@@ -39,6 +43,15 @@ function saveEventData(gameId, data) {
 }
 
 function checkShouldSaveEvent(event) {
+    /*
+        Second last vote:
+        When there is only one null vote value left. We need this as it's the only time we can
+        grab the chancellor for a failed vote
+    */
+    if (eventData.state.phase === 'vote') {
+        return Object.values(eventData.state.votes).filter(v => v === null).length === 1
+    }
+
     /*
         Failed vote:
         When going from vote -> proposed and no chancellor is selected
