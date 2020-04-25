@@ -29,9 +29,11 @@ const EventFeed: React.FC<Props> = ({ states }) => {
         state => state.phase === 'secondLastVoteWithChancellor' || state.phase === 'failedVote' || state.phase === 'missionOutcome'
     )
 
+    console.log('releventEvents', releventEvents)
+
     const getRounds = (states: EventState[]) => {
         let isNewRound = true
-        const rounds: Round[] = [[]]
+        const rounds: Round[] = []
 
         states.forEach((state) => {
             if (state.phase !== 'missionOutcome') {
