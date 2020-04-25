@@ -3,14 +3,14 @@ import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles'
 
 import Typography from '@material-ui/core/Typography'
 
-import { GameState, GameEvent, Player } from './types'
+import { GameState } from './types'
 
 import Header from './components/Header'
 import playerStore from './playerStore'
 import LiveView from './Views/LiveView'
 import subscriptionStore, { isConnectionChangeEvent } from './subscriptionStore'
 
-import { events } from './testEvents'
+// import { events } from './testEvents'
 
 const hitsTheme = createMuiTheme({
   palette: {
@@ -23,7 +23,8 @@ class App extends React.Component<{}, GameState> {
   constructor(props: any) {
     super(props)
     this.state = {
-      events: events.map(e => e.data)
+      // events: events.map(e => e.data)
+      events: [],
     }
   }
 
@@ -72,7 +73,9 @@ class App extends React.Component<{}, GameState> {
             : (
               <div style={{ display: 'flex', flexDirection: 'column', margin: '16px' }}>
                   <Typography color='textPrimary' variant='h3'>Waiting for game to start...</Typography>
-                  <Typography color='textPrimary' variant='h5'>Ensure only ONE person is recording game.</Typography>
+                  <Typography color='textSecondary'>Ensure only ONE person is recording game.</Typography>
+                  <br/>
+                  <Typography color='textSecondary'>TODO: Load previous game state; currently refresh will purge past events</Typography>
               </div>
             )
         }
