@@ -49,6 +49,8 @@ class App extends React.Component<{}, GameState> {
 
   render () {
 
+    console.log(this.state.events)
+
     return (
       <div>
         {
