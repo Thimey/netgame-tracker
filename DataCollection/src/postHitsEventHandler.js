@@ -48,8 +48,8 @@ function checkShouldSaveEvent(event) {
         When there is only one null vote value left. We need this as it's the only time we can
         grab the chancellor for a failed vote
     */
-    if (eventData.state.phase === 'vote') {
-        return Object.values(eventData.state.votes).filter(v => v === null).length === 1
+    if (event.state.phase === 'vote') {
+        return Object.values(event.state.votes).filter(v => v === null).length === 1
     }
 
     /*
