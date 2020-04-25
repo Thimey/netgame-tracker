@@ -36,7 +36,7 @@ const EventFeed: React.FC<Props> = ({ states }) => {
         const rounds: Round[] = []
 
         states.forEach((state) => {
-            if (state.phase !== 'missionOutcome') {
+            if (state.phase !== 'missionOutcome' || !rounds.length) {
                 if (isNewRound) {
                     rounds.push([state])
                 } else {

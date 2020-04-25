@@ -10,7 +10,7 @@ import playerStore from './playerStore'
 import LiveView from './Views/LiveView'
 import subscriptionStore, { isConnectionChangeEvent } from './subscriptionStore'
 
-// import { events } from './testEvents'
+import { events } from './testEvents'
 
 const hitsTheme = createMuiTheme({
   palette: {
@@ -23,7 +23,7 @@ class App extends React.Component<{}, GameState> {
   constructor(props: any) {
     super(props)
     this.state = {
-      events: []
+      events: events.map(e => e.data)
     }
   }
 
