@@ -19,7 +19,7 @@ const useStyles = makeStyles({
     },
     voteOutcome: {
         display: 'flex',
-        width: '40%',
+        width: '50%',
     },
     voteList: {
         width: '50%',
