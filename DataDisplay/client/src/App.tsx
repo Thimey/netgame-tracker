@@ -35,7 +35,6 @@ class App extends React.Component<{}, GameState> {
   }
 
   eventHandler = (event: any) => {
-    console.log('event', event)
     if (isConnectionChangeEvent(event)) {
       return
     }
@@ -59,9 +58,6 @@ class App extends React.Component<{}, GameState> {
   }
 
   render () {
-
-    console.log(this.state.events)
-
     return (
       <ThemeProvider theme={hitsTheme}>
         <Header />

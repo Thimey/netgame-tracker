@@ -26,36 +26,40 @@ interface Props {
 const VoteRound: React.FC<Props> = ({ round }) => {
     const classes = useStyles({})
 
-    const getChancellors = () => {
+    const getChancellorsAndPresidents = () => {
         let isNewVoteRound = true
         let chancellors: string[] = []
+        let presidents: number[] = []
 
         round.forEach(event => {
-            // the secondLastVoteWithChancellor contains the chancellor for the susequent failedVote
+            // the secondLastVoteWithChancellor contains the president and chancellor for the susequent failedVote
             // and the missionOutcome (a successful vote or flip) has its own chancellor
             if (event.phase === 'secondLastVoteWithChancellor' && isNewVoteRound) {
                 chancellors.push(event.chancellor as string)
+                presidents.push(event.president)
                 isNewVoteRound = false
+            } else if (event.phase === 'failedVote') {
+                isNewVoteRound = true
             } else if (event.phase === 'missionOutcome') {
                 chancellors.push(event.chancellor as string)
+                presidents.push(event.president)
                 isNewVoteRound = true
             }
         })
 
-        return chancellors
+        return { presidents, chancellors }
     }
 
-    const chancellors = getChancellors()
+    const { presidents, chancellors } = getChancellorsAndPresidents()
     const votingRounds = round.filter(event => event.phase !== 'secondLastVoteWithChancellor')
-
-    console.log('voteRound round d', round)
 
     return (
         <div className={classes.voteRoundContainer}>
-            {votingRounds.map((vote, index) => (
+            {votingRounds.map((round, index) => (
                 <Vote
                     key={`voteRound${index + 1}`}
-                    vote={vote}
+                    votes={round.votes}
+                    president={presidents[index]}
                     proposedChancellor={chancellors[index]}
                 />
             ))}

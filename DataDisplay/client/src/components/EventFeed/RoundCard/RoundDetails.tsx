@@ -82,7 +82,7 @@ const RoundDetails: React.FC<Props> = ({ round }) => {
 
         return (
             <Typography>
-                round incomplete
+                Round incomplete...
             </Typography>
         )
 

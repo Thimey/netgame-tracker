@@ -48,7 +48,8 @@ const useStyles = makeStyles({
 })
 
 interface Props {
-    vote: EventState
+    votes: EventState['votes']
+    president: number
     proposedChancellor: string
 }
 
@@ -60,11 +61,9 @@ interface PlayerListProps {
 
 const Vote: React.FC<Props> = (
     {
-        vote: {
-            president: presidentIndex,
-            votes,
-        },
+        votes,
         proposedChancellor: chancellorId,
+        president: presidentIndex,
     }) => {
     const classes = useStyles({})
 

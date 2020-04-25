@@ -4,7 +4,8 @@ import classnames from 'classnames'
 
 import { fascistColor, liberalColor } from '../../../constants'
 
-const ROUNDS_TO_WIN = 5
+const ROUNDS_TO_WIN_FOR_LIBERAL = 5
+const ROUNDS_TO_WIN_FOR_FASCIST = 6
 
 const useStyles = makeStyles({
     scoreContainer: {
@@ -40,8 +41,8 @@ const ScoreBoard: React.FC<Props> = ({ count, type }) => {
             {
                 type === 'liberal'
                     ? (
-                        Array(ROUNDS_TO_WIN).fill(null).map((_, index) => {
-                            if (index >= ROUNDS_TO_WIN - count) {
+                        Array(ROUNDS_TO_WIN_FOR_LIBERAL).fill(null).map((_, index) => {
+                            if (index >= ROUNDS_TO_WIN_FOR_LIBERAL - count) {
                                 return (
                                     <div className={classnames(classes.scoreCircle, classes.liberalWin)}/>
                                 )
@@ -53,7 +54,7 @@ const ScoreBoard: React.FC<Props> = ({ count, type }) => {
                         })
                     )
                     : (
-                        Array(ROUNDS_TO_WIN).fill(null).map((_, index) => {
+                        Array(ROUNDS_TO_WIN_FOR_FASCIST).fill(null).map((_, index) => {
                             if (index < count) {
                                 return (
                                     <div className={classnames(classes.scoreCircle, classes.fascistWin)}/>
