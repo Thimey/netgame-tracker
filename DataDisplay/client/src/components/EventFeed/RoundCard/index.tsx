@@ -1,5 +1,6 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/styles'
+import Paper from '@material-ui/core/Paper'
 
 import { Round} from '../../../types'
 
@@ -10,9 +11,7 @@ import VoteRound from './VoteRound'
 const useStyles = makeStyles({
     container: {
         display: 'flex',
-        width: '100%',
-        border: '1px solid black',
-        marginBottom: '10px',
+        padding: '1rem',
     },
 })
 
@@ -24,10 +23,10 @@ const RoundCard: React.FC<Props> = ({ round }) => {
     const classes = useStyles({})
 
     return (
-        <div className={classes.container}>
+        <Paper elevation={3} className={classes.container}>
             <VoteRound round={round} />
             <RoundDetails round={round} />
-        </div>
+        </Paper>
     )
 }
 

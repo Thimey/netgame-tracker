@@ -2,6 +2,8 @@ import React from 'react'
 import { makeStyles } from '@material-ui/styles'
 import classnames from 'classnames'
 
+import { fascistColor, liberalColor } from '../../../constants'
+
 const ROUNDS_TO_WIN = 5
 
 const useStyles = makeStyles({
@@ -10,18 +12,18 @@ const useStyles = makeStyles({
         alignItems: 'center',
     },
     scoreCircle: {
-        width: '10px',
-        height: '10px',
+        width: '14px',
+        height: '14px',
         border: '1px solid black',
         borderRadius: '50%',
         backgroundColor: 'grey',
         margin: '1px',
     },
     fascistWin: {
-        backgroundColor: 'red',
+        backgroundColor: fascistColor,
     },
     liberalWin: {
-        backgroundColor: 'blue',
+        backgroundColor: liberalColor,
     }
 })
 
@@ -63,7 +65,7 @@ const ScoreBoard: React.FC<Props> = ({ count, type }) => {
                             )
                         })
                     )
-                
+
             }
         </div>
     )

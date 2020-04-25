@@ -1,7 +1,13 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/styles'
+import classnames from 'classnames'
+
+import Paper from '@material-ui/core/Paper'
+import Typography from '@material-ui/core/Typography'
 
 import playerStore from '../../../../playerStore'
+import { fascistColor, liberalColor } from '../../../../constants'
+
 
 import { EventState, Player } from '../../../../types'
 
@@ -9,7 +15,7 @@ const useStyles = makeStyles({
     voteContainer: {
         display: 'flex',
         flex: 1,
-        borderBottom: '1px solid grey',
+        padding: '0.5rem',
     },
     voteOutcome: {
         display: 'flex',
@@ -22,6 +28,12 @@ const useStyles = makeStyles({
     voteHeader: {
         paddingBottom: '2px',
         fontWeight: 'bold',
+    },
+    ya: {
+        color: liberalColor,
+    },
+    nein: {
+        color: fascistColor,
     },
     playerList: {
         display: 'flex',
@@ -59,9 +71,9 @@ const Vote: React.FC<Props> = (
         <div className={classes.playerList}>
             {
                 players.map(player => (
-                    <span key={player.id}>
+                    <Typography noWrap key={player.id}>
                         {player.name}
-                    </span>
+                    </Typography>
                 ))
             }
         </div>
@@ -73,22 +85,22 @@ const Vote: React.FC<Props> = (
     const neinVoters = players.filter(player => !votes[player.id])
 
     return (
-        <div className={classes.voteContainer}>
+        <Paper variant='outlined' className={classes.voteContainer}>
             <div className={classes.voteOutcome}>
                 <div className={classes.voteList}>
-                    <div className={classes.voteHeader}>Ya</div>
+                    <Typography className={classnames(classes.voteHeader, classes.ya)}>Ya</Typography>
                     <PlayerList players={yaVoters}/>
                 </div>
                 <div className={classes.voteList}>
-                    <div className={classes.voteHeader}>Nein</div>
+                    <Typography className={classnames(classes.voteHeader, classes.nein)}>Nein</Typography>
                     <PlayerList players={neinVoters}/>
                 </div>
             </div>
             <div className={classes.voteDetails}>
-                <span>{`President: ${playerStore.getPlayerByIndex(president)}`}</span>
-                <span>{`Proposed chancellor: ${chancellor ? playerStore.getPlayerById(chancellor) : '-'}`}</span>
+                <Typography>{`President: ${playerStore.getPlayerByIndex(president)}`}</Typography>
+                <Typography>{`Proposed chancellor: ${chancellor ? playerStore.getPlayerById(chancellor) : '-'}`}</Typography>
             </div>
-        </div>
+        </Paper>
     )
 }
 

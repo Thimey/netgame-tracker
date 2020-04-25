@@ -16,7 +16,6 @@ const useStyles = makeStyles({
         width: '80%',
         height: 'fit-content',
         flexDirection: 'column',
-        border: '1px solid black',
     }
 })
 

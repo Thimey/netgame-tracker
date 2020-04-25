@@ -1,8 +1,13 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/styles'
+import classnames from 'classnames'
+import Typography from '@material-ui/core/Typography'
+import Paper from '@material-ui/core/Paper'
 
 import { EventState, Round } from '../../../types'
+import { fascistColor, liberalColor } from '../../../constants'
 import playerStore from '../../../playerStore'
+
 
 import ScoreAndDeck from '../../GameBoard/ScoreAndDeck'
 
@@ -13,11 +18,23 @@ const useStyles = makeStyles({
         textAlign: 'center',
         alignItems: 'center',
         flex: 1,
-        borderLeft: '1px solid black',
+        '& > :first-child': {
+            marginBottom: '1rem',
+        }
+    },
+    libResult: {
+        color: liberalColor,
+    },
+    facResult: {
+        color: fascistColor,
     },
     voteDetails: {
+        padding: '0.5rem',
+        alignItems: 'flex-start',
         display: 'flex',
         flexDirection: 'column',
+        width: '80%',
+        marginTop: 'auto',
     }
 
 })
@@ -43,32 +60,36 @@ const RoundDetails: React.FC<Props> = ({ round }) => {
                 deck,
                 removed,
             } = lastEvent
-    
+
             return (
-                <div>
+                <>
                     <ScoreAndDeck score={num_enacted} deck={deck} removed={removed} refusals={refusals} />
-                    <div className={classes.voteDetails}>
-                        <span>{`President: ${playerStore.getPlayerByIndex(president)}`}</span>
-                        <span>{`Chancellor: ${chancellor ? playerStore.getPlayerById(chancellor) : '-'}`}</span>
-                    </div>
-                    <span>{`Outcome: ${last_enacted ? 'Liberal' : 'Fascist'}`}</span>
-                </div>
+
+                    <Paper variant='outlined' className={classes.voteDetails}>
+                        <Typography>{`President: ${playerStore.getPlayerByIndex(president)}`}</Typography>
+                        <Typography>{`Chancellor: ${chancellor ? playerStore.getPlayerById(chancellor) : '-'}`}</Typography>
+                        <Typography className={classnames({
+                            [classes.libResult]: last_enacted,
+                            [classes.facResult]: !last_enacted,
+                        })}>{`Outcome: ${last_enacted ? 'Liberal' : 'Fascist'}`}</Typography>
+                    </Paper>
+                </>
             )
         }
 
         return (
-            <div>
+            <Typography>
                 round incomplete
-            </div>
+            </Typography>
         )
-    
+
     }
 
     const roundNumber = round[0].num_enacted.fascist + round[0].num_enacted.liberal + 1
 
     return (
         <div className={classes.container}>
-            <h4>{`Round ${roundNumber}`}</h4>
+            <Typography variant='h5'>{`Round ${roundNumber}`}</Typography>
             {getRoundDetails()}
         </div>
     )
