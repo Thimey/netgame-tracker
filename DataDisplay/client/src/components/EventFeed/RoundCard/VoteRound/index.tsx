@@ -1,7 +1,7 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/styles'
 
-import { BaseEventState } from '../../../../types'
+import { EventState } from '../../../../types'
 import Vote from './Vote'
 
 const useStyles = makeStyles({
@@ -13,7 +13,7 @@ const useStyles = makeStyles({
 })
 
 interface Props {
-    votes: BaseEventState[]
+    votes: EventState[]
 }
 
 const VoteRound: React.FC<Props> = ({ votes }) => {

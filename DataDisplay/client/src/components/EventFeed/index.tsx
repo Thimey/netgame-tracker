@@ -1,7 +1,7 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/styles'
 
-import { EventState, isCheckOutcomeState, Round } from '../../types'
+import { EventState, Round } from '../../types'
 
 import RoundCard from './RoundCard'
 
@@ -26,7 +26,7 @@ const EventFeed: React.FC<Props> = ({ states }) => {
     const classes = useStyles({})
 
     const checkOutcomeAndVoteEvents = states.filter(
-        state => state.phase === 'check_outcome' || state.phase === 'vote'
+        state => state.phase === 'failedVote' || state.phase === 'missionOutcome'
     )
 
     const getRounds = (states: EventState[]) => {
@@ -34,7 +34,7 @@ const EventFeed: React.FC<Props> = ({ states }) => {
         const rounds: Round[] = []
 
         states.forEach((state, index) => {
-            if (!isCheckOutcomeState(state)) {
+            if (state.phase !== 'missionOutcome') {
                 voteCount += 1
 
                 return

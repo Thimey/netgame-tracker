@@ -1,6 +1,8 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/styles'
 
+import playerStore from '../../playerStore'
+
 import { GameEvent } from '../../types'
 
 import EventFeed from '../../components/EventFeed'
@@ -30,6 +32,8 @@ const LiveView: React.FC<Props> = ({ events }) => {
 
     const states = events.map(event => event.state)
     const latestState = events[events.length - 1].state
+
+    playerStore.addPlayers(events[0].players)
 
 
     return (

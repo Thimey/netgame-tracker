@@ -4,6 +4,7 @@ export interface GameState {
 
 export interface GameEvent {
     id: string
+    created: number
     game_id: string
     players: Player[]
     clock: {
@@ -12,54 +13,35 @@ export interface GameEvent {
     }
     state: EventState
     last_modified: number
-    client_timestamp: number
-    server_timestamp: number
-    created: number
 }
 
-export type EventState = BaseEventState | CheckOutcomeEventState
-
-export interface BaseEventState {
-    phase: GamePhase
-    previous_phase: GamePhase
-    num_enacted: Score
+export interface EventState {
+    phase: string
+    previous_president: number
+    previous_chancellor: string
+    last_enacted: boolean
     deck: boolean[]
-    removed: number
-    president: number
     refusals: number
-    hitler: string
+    previous_phase: string
     allegiance: {
         [key: string]: boolean
     }
     executed: {
         [key: string]: boolean
     }
-    chancellor: string
+    vote_pass: boolean
+    hitler: string
+    chancellor: string | null
+    removed: number
+    ready: boolean
+    num_enacted: Score
+    president: number
     votes: {
         [key: string]: boolean
     }
-    ready: boolean
 }
 
-export interface CheckOutcomeEventState extends BaseEventState {
-    previous_president: number
-    previous_chancellor: string
-    last_enacted: boolean
-    to_enact: number
-}
-
-export const isCheckOutcomeState = (state: BaseEventState | CheckOutcomeEventState): state is CheckOutcomeEventState => {
-    if (!state) {
-        return false
-    }
-
-    return (
-        !!(state as CheckOutcomeEventState).to_enact
-    )
-}
-
-export type GamePhase =  'vote' | 'president' | 'chancellor' | 'check_outcome'
-
+export type GamePhase =  'missionOutcome' | 'failedVote'
 
 export interface Player {
     id: string
@@ -74,8 +56,8 @@ export interface Game {
 }
 
 export interface Round {
-    votes: BaseEventState[]
-    outcome: CheckOutcomeEventState
+    votes: EventState[]
+    outcome: EventState
 }
 
 enum RoundState {

@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/styles'
 
 import playerStore from '../../../../playerStore'
 
-import { BaseEventState, Player } from '../../../../types'
+import { EventState, Player } from '../../../../types'
 
 const useStyles = makeStyles({
     container: {
@@ -23,7 +23,7 @@ const useStyles = makeStyles({
 })
 
 interface Props {
-    vote: BaseEventState
+    vote: EventState
 }
 
 interface PlayerListProps {
@@ -56,6 +56,8 @@ const Vote: React.FC<Props> = (
 
     const players = playerStore.players
 
+    console.log('players', players)
+
     const yaVoters = Object.keys(votes).reduce((voters, id) => {
         if (votes[id]) {
             const player = players.find(player => player.id === id)
@@ -70,7 +72,7 @@ const Vote: React.FC<Props> = (
         <div className={classes.container}>
             <div className={classes.voteOutcome}>
                 <PlayerList players={yaVoters}/>
-                <PlayerList players={players.filter(player => yaVoters.find(yV => yV.id !== player.id))}/>
+                {/* <PlayerList players={players.filter(player => yaVoters.find(yV => yV.id !== player.id))}/> */}
             </div>
             <div className={classes.voteDetails}>
                 <span>{`President: ${president}`}</span>
