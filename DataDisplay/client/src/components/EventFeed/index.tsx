@@ -30,20 +30,24 @@ const EventFeed: React.FC<Props> = ({ states }) => {
     )
 
     const getRounds = (states: EventState[]) => {
-        let voteCount = 0
-        const rounds: Round[] = []
+        let isNewRound = true
+        const rounds: Round[] = [[]]
 
-        states.forEach((state, index) => {
+        states.forEach((state) => {
             if (state.phase !== 'missionOutcome') {
-                voteCount += 1
+                if (isNewRound) {
+                    rounds.push([state])
+                } else {
+                    rounds[rounds.length - 1].push(state)
+                }
 
-                return
+                isNewRound = false
+            } else {
+                // is a missionOutcome = end of round
+                rounds[rounds.length - 1].push(state)
+
+                isNewRound = true
             }
-
-            // is a missionOutcome = end of round
-            rounds.push([...states.slice(index - voteCount, index + 1)])
-
-            voteCount = 0
         })
 
         return rounds
