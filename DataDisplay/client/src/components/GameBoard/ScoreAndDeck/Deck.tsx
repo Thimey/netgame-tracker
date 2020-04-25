@@ -4,7 +4,14 @@ import Typography from '@material-ui/core/Typography'
 
 
 const useStyles = makeStyles({
-
+    deck: {
+        backgroundColor: 'white',
+        border: '1px solid',
+        color: 'black',
+        padding: '2px',
+        marginLeft: '8px',
+        marginRight: '8px',
+    }
 })
 
 interface Props {
@@ -16,8 +23,8 @@ const Deck: React.FC<Props> = ({ count }) => {
 
 
     return (
-        <Typography >
-            {`Deck count: ${count}`}
+        <Typography className={classes.deck} >
+            {count}
         </Typography>
     )
 }
