@@ -37,6 +37,7 @@ const useStyles = makeStyles({
 
 interface Props {
     vote: EventState
+    proposedChancellor: string
 }
 
 interface PlayerListProps {
@@ -48,9 +49,9 @@ const Vote: React.FC<Props> = (
     {
         vote: {
             president,
-            chancellor,
             votes,
-        }
+        },
+        proposedChancellor,
     }) => {
     const classes = useStyles({})
 
@@ -86,7 +87,7 @@ const Vote: React.FC<Props> = (
             </div>
             <div className={classes.voteDetails}>
                 <span>{`President: ${playerStore.getPlayerByIndex(president)}`}</span>
-                <span>{`Proposed chancellor: ${chancellor ? playerStore.getPlayerById(chancellor) : '-'}`}</span>
+                <span>{`Proposed chancellor: ${proposedChancellor ? playerStore.getPlayerById(proposedChancellor) : '-'}`}</span>
             </div>
         </div>
     )

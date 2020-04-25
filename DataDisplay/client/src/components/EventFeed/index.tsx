@@ -25,8 +25,8 @@ interface Props {
 const EventFeed: React.FC<Props> = ({ states }) => {
     const classes = useStyles({})
 
-    const checkOutcomeAndVoteEvents = states.filter(
-        state => state.phase === 'failedVote' || state.phase === 'missionOutcome'
+    const releventEvents = states.filter(
+        state => state.phase === 'secondLastVoteWithChancellor' || state.phase === 'failedVote' || state.phase === 'missionOutcome'
     )
 
     const getRounds = (states: EventState[]) => {
@@ -53,12 +53,12 @@ const EventFeed: React.FC<Props> = ({ states }) => {
         return rounds
     }
 
-    console.log('rounds', getRounds(checkOutcomeAndVoteEvents))
+    console.log('rounds', getRounds(releventEvents))
 
     return (
         <div className={classes.container}>
             {
-                getRounds(checkOutcomeAndVoteEvents).map(round => (
+                getRounds(releventEvents).map(round => (
                     <RoundCard round={round} />
                 ))
             }

@@ -41,7 +41,7 @@ export interface EventState {
     }
 }
 
-export type GamePhase =  'missionOutcome' | 'failedVote'
+export type GamePhase =  'secondLastVoteWithChancellor' | 'missionOutcome' | 'failedVote'
 
 export interface Player {
     id: string
