@@ -11,6 +11,9 @@ import ScoreAndDeck from './ScoreAndDeck'
 const useStyles = makeStyles({
     container: {
         padding: '1rem',
+        '& > *': {
+            marginBottom: '1rem',
+        }
     }
 })
 
