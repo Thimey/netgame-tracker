@@ -1,5 +1,5 @@
 import React from 'react'
-import { makeStyles } from '@material-ui/styles'
+import { makeStyles } from '@material-ui/core/styles'
 
 import Grid from '@material-ui/core/Grid'
 
@@ -11,16 +11,25 @@ import EventFeed from '../../components/EventFeed'
 import GameBoard from '../../components/GameBoard'
 
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
     container: {
-        display: 'flex',
         padding: '1rem',
-        '& > :last-child': {
-            paddingLeft: '1rem',
+        [theme.breakpoints.up('md')]: {
+            display: 'flex',
+            '& > :last-child': {
+                paddingLeft: '1rem',
+            },
+        },
+        [theme.breakpoints.down('sm')]: {
+            display: 'flex',
+            flexDirection: 'column-reverse',
+            '& > :last-child': {
+                marginBottom: '1rem',
+            },
         },
     }
 
-})
+}))
 
 interface Props {
     events: GameEvent[]

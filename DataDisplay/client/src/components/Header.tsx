@@ -25,19 +25,17 @@ interface Props {}
 const LiveView: React.FC<Props> = () => {
     const classes = useStyles({})
 
-
-
     return (
         <Grid className={classes.container}>
             <Grid item xs={9}>
                 <Typography color='textPrimary' variant='h4'>
-                    Hits recorder
+                    Lahd Hits
                 </Typography>
             </Grid>
 
             <Grid className={classes.poweredBy} item xs={3}>
                 <Typography  color='textPrimary' variant='caption'>
-                    For the lahds, PoweredBy 3Amigos
+                    For the lahds. Powered by 3Amigos
                 </Typography>
             </Grid>
         </Grid>
