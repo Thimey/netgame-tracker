@@ -33,6 +33,7 @@ const LiveView: React.FC<Props> = ({ events }) => {
     const latestState = events[events.length - 1].state
 
     playerStore.addPlayers(events[0].players)
+    playerStore.setCurrentPresident(latestState.president)
 
 
     return (

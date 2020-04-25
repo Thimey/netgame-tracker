@@ -55,19 +55,22 @@ const RoundDetails: React.FC<Props> = ({ round }) => {
                 num_enacted,
                 refusals,
                 last_enacted,
-                president,
-                chancellor,
+                president: presidentIndex,
+                chancellor: chancellorId,
                 deck,
                 removed,
             } = lastEvent
+
+            const president = playerStore.getPlayerByIndex(presidentIndex)
+            const proposedChancellor = chancellorId && playerStore.getPlayerById(chancellorId)
 
             return (
                 <>
                     <ScoreAndDeck score={num_enacted} deck={deck} removed={removed} refusals={refusals} />
 
                     <Paper variant='outlined' className={classes.voteDetails}>
-                        <Typography>{`President: ${playerStore.getPlayerByIndex(president)}`}</Typography>
-                        <Typography>{`Chancellor: ${chancellor ? playerStore.getPlayerById(chancellor) : '-'}`}</Typography>
+                        <Typography>{`President: ${president ? president.name : '-'}`}</Typography>
+                        <Typography>{`Chancellor: ${proposedChancellor ? proposedChancellor.name : '-'}`}</Typography>
                         <Typography className={classnames({
                             [classes.libResult]: last_enacted,
                             [classes.facResult]: !last_enacted,

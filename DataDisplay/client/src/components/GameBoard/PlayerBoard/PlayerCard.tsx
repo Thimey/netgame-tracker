@@ -26,19 +26,19 @@ interface Props {
     name: string
     isPresident: boolean
     isPreviousPresident: boolean
-    isPreviousChancelor: boolean
+    isPreviousChancellor: boolean
 }
 
 const PlayerCard: React.FC<Props> = ({
     name,
     isPresident,
-    isPreviousChancelor,
+    isPreviousChancellor,
     isPreviousPresident,
 }) => {
     const classes = useStyles({})
 
     // TODO if 5 player, I think previousPresident can be proposed
-    const canPropose = !isPresident && !isPreviousChancelor && !isPreviousPresident
+    const canPropose = !isPresident && !isPreviousChancellor && !isPreviousPresident
 
     return (
         <Typography noWrap className={classnames(classes.root, {

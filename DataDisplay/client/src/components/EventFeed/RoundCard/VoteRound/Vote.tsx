@@ -61,10 +61,10 @@ interface PlayerListProps {
 const Vote: React.FC<Props> = (
     {
         vote: {
-            president,
+            president: presidentIndex,
             votes,
         },
-        proposedChancellor,
+        proposedChancellor: chancellorId,
     }) => {
     const classes = useStyles({})
 
@@ -89,6 +89,9 @@ const Vote: React.FC<Props> = (
     const yaVoters = players.filter(player => votes[player.id])
     const neinVoters = players.filter(player => !votes[player.id])
 
+    const president = playerStore.getPlayerByIndex(presidentIndex)
+    const proposedChancellor = playerStore.getPlayerById(chancellorId)
+
     return (
         <Paper variant='outlined' className={classes.voteContainer}>
             <div className={classes.voteOutcome}>
@@ -102,8 +105,8 @@ const Vote: React.FC<Props> = (
                 </div>
             </div>
             <div className={classes.voteDetails}>
-                <Typography>{`President: ${playerStore.getPlayerByIndex(president)}`}</Typography>
-                <Typography>{`Proposed chancellor: ${proposedChancellor ? playerStore.getPlayerById(proposedChancellor) : '-'}`}</Typography>
+                <Typography>{`President: ${president ? president.name : '-'}`}</Typography>
+                <Typography>{`Proposed chancellor: ${proposedChancellor ? proposedChancellor.name : '-'}`}</Typography>
             </div>
         </Paper>
     )
