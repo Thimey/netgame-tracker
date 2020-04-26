@@ -46,6 +46,8 @@ interface Props {
 const RoundDetails: React.FC<Props> = ({ round }) => {
     const classes = useStyles({})
 
+    console.log('round here', round)
+
     const getRoundDetails = () => {
         const lastEvent = round && round[round.length - 1]
         const hasOutcome = lastEvent && lastEvent.phase === 'missionOutcome'
@@ -53,7 +55,6 @@ const RoundDetails: React.FC<Props> = ({ round }) => {
         if (hasOutcome) {
             const {
                 num_enacted,
-                refusals,
                 last_enacted,
                 president: presidentIndex,
                 chancellor: chancellorId,
@@ -63,6 +64,17 @@ const RoundDetails: React.FC<Props> = ({ round }) => {
 
             const president = playerStore.getPlayerByIndex(presidentIndex)
             const proposedChancellor = chancellorId && playerStore.getPlayerById(chancellorId)
+            const refusals = round.reduce((refusalCount, event) => {
+                if (event.phase === 'failedVote') {
+                    return refusalCount + 1
+                }
+
+                if (event.phase === 'missionOutcome') {
+                    return event.vote_pass ? refusalCount : refusalCount + 1
+                }
+
+                return refusalCount
+            }, 0)
 
             return (
                 <>
