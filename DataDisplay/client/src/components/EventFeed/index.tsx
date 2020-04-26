@@ -53,8 +53,6 @@ const EventFeed: React.FC<Props> = ({ states }) => {
         return rounds
     }
 
-    console.log('rounds', getRounds(releventEvents))
-
     return (
         <div className={classes.container}>
             {
