@@ -1,11 +1,11 @@
-import React, { useState, ChangeEvent } from 'react'
+import React, { useState, useEffect, ChangeEvent } from 'react'
 import { makeStyles } from '@material-ui/styles'
 import TextField from '@material-ui/core/TextField'
 import Typography from '@material-ui/core/Typography'
 
 import harryOracle from './harryOracle.png'
 
-import { getProbablityOfAtLeastOneLiberal } from './utils'
+import { getProbablityOfAtLeastOneLiberal, harryQuotes } from './utils'
 
 
 const useStyles = makeStyles({
@@ -26,10 +26,22 @@ interface Props {
 const HarryOracle: React.FC<Props> = ({ deckCount }) => {
     const classes = useStyles({})
     const [liberalCardCount, setLiberalCardCount] = useState<number>()
+    const [quoteIndex, setQuoteIndex] = useState<number>(0)
 
     const onLiberalCountChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         setLiberalCardCount(parseInt(event.target.value, 10))
     }
+
+    useEffect(() => {
+        const quoteInterval = setInterval(() => {
+            const index = Math.floor(Math.random() * harryQuotes.length)
+
+            console.log('index', index)
+            setQuoteIndex(index)
+        }, 1000)
+
+        return clearInterval(quoteInterval)
+    }, [])
 
     return (
         <div className={classes.container}>
@@ -39,9 +51,7 @@ const HarryOracle: React.FC<Props> = ({ deckCount }) => {
                 width='40px'
             />
             <Typography>
-                {liberalCardCount
-                    ? `${getProbablityOfAtLeastOneLiberal(deckCount, liberalCardCount)} % to get at least 1 liberal!`
-                    : 'Ella, tell me the liberal count'}
+                {`${harryQuotes[quoteIndex]}`}
             </Typography>
             <div className={classes.liberalCountField}>
                 <TextField
@@ -52,6 +62,11 @@ const HarryOracle: React.FC<Props> = ({ deckCount }) => {
                     size='small'
                 />
             </div>
+            <Typography>
+                {liberalCardCount
+                    ? `${getProbablityOfAtLeastOneLiberal(deckCount, liberalCardCount)} % to get at least 1 liberal!`
+                    : ' '}
+            </Typography>
         </div>
     )
 }
