@@ -84,6 +84,13 @@ provider:
 #    - exclude-me-dir/**
 
 functions:
+  get-game-data:
+    handler: src/getGameDataHandler.getGameDataHandler
+    events:
+      - http:
+          path: "/hits-event"
+          method: get
+          cors: true
   connection-manager:
     handler: src/websocket/connectionManager.connectionManager
     events:
