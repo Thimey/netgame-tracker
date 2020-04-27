@@ -6,6 +6,7 @@ import playerStore from '../../playerStore'
 
 import { Player, EventState } from '../../types'
 
+import HarryOracle from './HarryOracle'
 import PlayerBoard from './PlayerBoard'
 import ScoreAndDeck from './ScoreAndDeck'
 
@@ -34,6 +35,7 @@ const GameBoard: React.FC<Props> = ({ latestState }) => {
 
     return (
         <Paper className={classes.container}>
+            <HarryOracle deckCount={deck.length - removed}/>
             <ScoreAndDeck
                 deck={deck}
                 removed={removed}
