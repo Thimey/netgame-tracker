@@ -45,6 +45,7 @@ const GameBoard: React.FC<Props> = ({
 
                         return (
                             <PlayerCard
+                                key={index}
                                 name={player.name}
                                 isPresident={!!isPresident}
                                 isPreviousPresident={!!isPreviousPresident}

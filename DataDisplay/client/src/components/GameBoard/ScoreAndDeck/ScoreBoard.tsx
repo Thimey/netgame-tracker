@@ -44,12 +44,12 @@ const ScoreBoard: React.FC<Props> = ({ count, type }) => {
                         Array(ROUNDS_TO_WIN_FOR_LIBERAL).fill(null).map((_, index) => {
                             if (index >= ROUNDS_TO_WIN_FOR_LIBERAL - count) {
                                 return (
-                                    <div className={classnames(classes.scoreCircle, classes.liberalWin)}/>
+                                    <div key={index} className={classnames(classes.scoreCircle, classes.liberalWin)}/>
                                 )
                             }
 
                             return (
-                                <div className={classes.scoreCircle}/>
+                                <div key={index} className={classes.scoreCircle}/>
                             )
                         })
                     )
@@ -57,12 +57,12 @@ const ScoreBoard: React.FC<Props> = ({ count, type }) => {
                         Array(ROUNDS_TO_WIN_FOR_FASCIST).fill(null).map((_, index) => {
                             if (index < count) {
                                 return (
-                                    <div className={classnames(classes.scoreCircle, classes.fascistWin)}/>
+                                    <div key={index} className={classnames(classes.scoreCircle, classes.fascistWin)}/>
                                 )
                             }
 
                             return (
-                                <div className={classes.scoreCircle}/>
+                                <div key={index} className={classes.scoreCircle}/>
                             )
                         })
                     )

@@ -23,3 +23,11 @@ functions:
           method: post
           cors: true
 
+  writeHitsEvent:
+    handler: src/startRecordingHandler.startRecordingHandler
+    events:
+      - http:
+          path: "/hits-start"
+          method: post
+          cors: true
+

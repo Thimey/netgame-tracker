@@ -56,8 +56,8 @@ const EventFeed: React.FC<Props> = ({ states }) => {
     return (
         <div className={classes.container}>
             {
-                getRounds(releventEvents).map(round => (
-                    <RoundCard round={round} />
+                getRounds(releventEvents).map((round, i) => (
+                    <RoundCard key={i} round={round} />
                 ))
             }
         </div>
