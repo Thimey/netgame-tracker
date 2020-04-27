@@ -9,6 +9,7 @@ import subscriptionStore, { isConnectionChangeEvent } from '../../subscriptionSt
 
 import playerStore from '../../playerStore'
 import { GameState } from '../../types'
+import { getGameEvents } from '../../services/getGameEvents'
 
 import EventFeed from '../../components/EventFeed'
 import GameBoard from '../../components/GameBoard'
@@ -47,36 +48,43 @@ class LiveView extends React.Component<Props, GameState> {
     constructor(props: any) {
         super(props)
         this.state = {
-          events: events.map(e => e.data)
-        //   events: [],
+          events: [],
         }
       }
-    
+
       componentDidMount() {
         subscriptionStore.initialise()
-    
+
         subscriptionStore.subscribe('hitsEvent', this.eventHandler)
 
         const { gameId } = this.props.match.params
 
-        console.log('gameId: ', gameId)
+        if (gameId) {
+          this.loadPreviousEvents(gameId)
+        }
       }
-    
+
+      loadPreviousEvents = async (gameId: string) => {
+        const events = await getGameEvents(gameId)
+
+        this.setState({ events })
+      }
+
       eventHandler = (event: any) => {
         if (isConnectionChangeEvent(event)) {
           return
         }
-    
+
         const { data } = event
-    
+
         if (!data) {
           return
         }
-    
+
         if (data && data.players && playerStore.players.length === 0) {
           playerStore.addPlayers(data.players)
         }
-    
+
         this.setState((prevState)=> ({
           events: [
             ...prevState.events,
@@ -89,6 +97,10 @@ class LiveView extends React.Component<Props, GameState> {
         const { events } = this.state
         const { classes } = this.props
 
+        if (!events.length) {
+          return null
+        }
+
         const states = events.map(event => event.state)
         const latestState = events[events.length - 1].state
 
@@ -100,7 +112,7 @@ class LiveView extends React.Component<Props, GameState> {
                 <Grid item xs={12} md={9}>
                     <EventFeed states={states}/>
                 </Grid>
-    
+
                 <Grid item xs={12} md={3}>
                     <GameBoard latestState={latestState} />
                 </Grid>
