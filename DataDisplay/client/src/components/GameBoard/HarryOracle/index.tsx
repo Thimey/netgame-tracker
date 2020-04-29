@@ -36,11 +36,10 @@ const HarryOracle: React.FC<Props> = ({ deckCount }) => {
         const quoteInterval = setInterval(() => {
             const index = Math.floor(Math.random() * harryQuotes.length)
 
-            console.log('index', index)
             setQuoteIndex(index)
-        }, 1000)
+        }, 10000)
 
-        return clearInterval(quoteInterval)
+        return () => clearInterval(quoteInterval)
     }, [])
 
     return (

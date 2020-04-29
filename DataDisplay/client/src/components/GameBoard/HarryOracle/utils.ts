@@ -13,5 +13,6 @@ export const harryQuotes = [
     '"For the Horde!"',
     '"My blade thirsts... for probabilities"',
     '"I’m hungry! For more stats...',
-    '"1 :1 tutoring, starting from $70/hr"'
+    '"1 :1 tutoring, starting from $70/hr"',
+    '"I am blind, not deaf"'
 ]
