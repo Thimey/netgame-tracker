@@ -42,6 +42,7 @@ provider:
       Resource:
         - arn:aws:dynamodb:ap-southeast-2:972124391741:table/hitsConnections
         - arn:aws:dynamodb:ap-southeast-2:972124391741:table/hitsEventData
+        - arn:aws:dynamodb:ap-southeast-2:972124391741:table/hitsGames
     - Effect: Allow
       Action:
         - dynamodb:DescribeStream
@@ -89,6 +90,14 @@ functions:
     events:
       - http:
           path: "/hits-event"
+          method: get
+          cors: true
+
+  get-games:
+    handler: src/getGamesHandler.getGamesHandler
+    events:
+      - http:
+          path: "/hits-games"
           method: get
           cors: true
   connection-manager:
