@@ -12,6 +12,7 @@ provider:
         - dynamodb:PutItem
       Resource:
         - arn:aws:dynamodb:ap-southeast-2:972124391741:table/hitsEventData
+        - arn:aws:dynamodb:ap-southeast-2:972124391741:table/hitsGames
 
 
 functions:
@@ -23,11 +24,11 @@ functions:
           method: post
           cors: true
 
-  writeHitsEvent:
-    handler: src/startRecordingHandler.startRecordingHandler
+  initialiseHitsGame:
+    handler: src/initialiseHitsGame.initialiseHitsGame
     events:
       - http:
-          path: "/hits-start"
+          path: "/hits-initialise"
           method: post
           cors: true
 

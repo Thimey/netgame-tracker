@@ -85,16 +85,16 @@ module.exports.postHitsEventHandler = async (event, context, callback) => {
     console.info(JSON.stringify(event))
     try {
         const hitsEvent = JSON.parse(event.body)
-        const gameId = hitsEvent.id
+        const lahdGameId = hitsEvent.lahdGameId
 
-        if (!gameId) {
+        if (!lahdGameId) {
             throw new Error('No game id found')
         }
 
         const shouldSaveEvent = checkShouldSaveEvent(hitsEvent)
 
         if (shouldSaveEvent) {
-            await saveEventData(gameId, hitsEvent)
+            await saveEventData(lahdGameId, hitsEvent)
         }
 
         const response = {

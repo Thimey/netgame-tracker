@@ -4,30 +4,30 @@ const AWS = require('aws-sdk')
 
 const documentClient = new AWS.DynamoDB.DocumentClient({ apiVersion: '2012-10-08' })
 
-function saveGame(gameId, data) {
+function saveGame(lahdGameId) {
+    const [_gameId, timestamp] = lahdGameId.split('_')
+
     const putParams = {
         TableName: 'hitsGames',
         Item: {
-            gameId,
-            timestamp: Date.now(),
-            data,
+            gameId: lahdGameId,
+            timestamp: parseInt(timestamp, 10),
         },
     }
 
     return documentClient.put(putParams).promise()
 }
 
-module.exports.startRecordingHandler = async (event, context, callback) => {
+module.exports.initialiseHitsGame = async (event, context, callback) => {
     console.info(JSON.stringify(event))
     try {
-        const hitsEvent = JSON.parse(event.body)
-        const gameId = hitsEvent.id
+        const { lahdGameId } = JSON.parse(event.body)
 
-        if (!gameId) {
-            throw new Error('No game id found')
+        if (!lahdGameId) {
+            throw new Error('No lahdGameId id found')
         }
 
-        await saveGame(gameId, hitsEvent)
+        await saveGame(lahdGameId)
 
         const response = {
             statusCode: 200,
@@ -36,7 +36,7 @@ module.exports.startRecordingHandler = async (event, context, callback) => {
                 'Access-Control-Allow-Credentials': true,
             },
             body: JSON.stringify({
-                saved: true
+                saved: lahdGameId
             }),
         };
 
