@@ -26,7 +26,11 @@ export default function GameList() {
   React.useEffect(() => {
     const fetchGames = async () => {
         const fetchedGames = await getGames()
-        setGames(fetchedGames)
+
+        // sort games from newest -> oldest
+        const sortedGames = fetchedGames.sort((game1, game2) => game2.timestamp - game1.timestamp)
+
+        setGames(sortedGames)
     }
 
     fetchGames()
