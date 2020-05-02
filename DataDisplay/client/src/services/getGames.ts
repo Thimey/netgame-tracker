@@ -1,11 +1,16 @@
 
 import { api } from './api'
 
-const getGameEventsUrl = `${api}/hits-event`
+const getGamesUrl = `${api}/hits-games`
 
-export async function getGameEvents(gameId: string) {
+export interface Game {
+    gameId: string
+    timestamp: number
+}
+
+export async function getGames(): Promise<Game[]> {
     try {
-        const resp = await fetch(`${getGameEventsUrl}?gameId=${gameId}`, {
+        const resp = await fetch(getGamesUrl, {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
@@ -14,10 +19,9 @@ export async function getGameEvents(gameId: string) {
             mode: 'cors',
         })
 
-
         const { events } = await resp.json()
 
-        return events.map((e: any) => e.data)
+        return events
 
     } catch (e) {
         console.error(e)
