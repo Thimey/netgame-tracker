@@ -12,7 +12,7 @@ function getGameEvents(gameId) {
             'gameId = :gameId',
         ].join(' '),
         ExpressionAttributeValues: {
-            ':gameId': gameId.toUpperCase(),
+            ':gameId': gameId,
         },
         ScanIndexForward: true,
     }
@@ -36,7 +36,7 @@ module.exports.getGameDataHandler = async (event, context, callback) => {
         const response = {
             statusCode: 200,
             body: JSON.stringify({
-                events: gameEvents.Items.map(e => e.data),
+                events: gameEvents.Items,
             }),
             headers: {
               'Access-Control-Allow-Origin': '*',
