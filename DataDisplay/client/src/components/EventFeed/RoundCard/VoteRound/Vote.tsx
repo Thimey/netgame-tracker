@@ -6,7 +6,7 @@ import Paper from '@material-ui/core/Paper'
 import Typography from '@material-ui/core/Typography'
 
 import playerStore from '../../../../playerStore'
-import { fascistColor, liberalColor, successVoteColor, failVoteColor } from '../../../../constants'
+import { successVoteColor, failVoteColor } from '../../../../constants'
 
 
 import { EventState, Player } from '../../../../types'

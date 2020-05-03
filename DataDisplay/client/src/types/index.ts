@@ -41,7 +41,35 @@ export interface EventState {
     }
 }
 
-export type GamePhase =  'secondLastVoteWithChancellor' | 'missionOutcome' | 'failedVote'
+export interface InvestigationState extends EventState {
+    to_investigate: string
+}
+
+export interface ExecutionState extends EventState {
+    to_execute: string
+}
+
+export interface SpecialElection extends EventState {
+    next_president: number
+}
+
+export interface isPolicyPeekEvent extends EventState {}
+
+export function isInvestigationEvent(event: EventState): event is InvestigationState {
+    return event.phase === 'investigation_result' && !!(event as InvestigationState).to_investigate
+}
+
+export function isExecutionEvent(event: EventState): event is ExecutionState {
+    return event.phase === 'execution_result' && !!(event as ExecutionState).to_execute
+}
+
+export function isSpecialElectionEvent(event: EventState): event is SpecialElection {
+    return !!(event as SpecialElection).next_president
+}
+
+export function isPolicyPeekEvent(event: EventState): event is isPolicyPeekEvent {
+    return event.phase === 'policy_peek'
+}
 
 export interface Player {
     id: string
@@ -52,7 +80,7 @@ export interface Game {
     id: number
     startTime: string
     endTime: string
-    events: (Round | SpecialEvent)[]
+    events: Round[]
 }
 
 export type Round = EventState[]
@@ -88,27 +116,4 @@ export interface Vote {
     proposedChancellor: Player | null
     ya: Player[]
     nein: Player[]
-}
-
-export interface SpecialEvent {
-    event: ExecutionEvent | InvestigateEvent | SpecialElection | LookAtNextThreeCards
-}
-
-export interface ExecutionEvent {
-    president: Player
-    executed: Player
-}
-
-export interface InvestigateEvent {
-    president: Player
-    investigated: Player
-}
-
-export interface SpecialElection {
-    president: Player
-    specialPresident: Player
-}
-
-export interface LookAtNextThreeCards {
-    president: Player
 }
