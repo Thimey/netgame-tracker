@@ -8,3 +8,5 @@ export const liberalBackgroundColor = 'rgba(51, 121, 183, 0.6)'
 
 export const successVoteColor = '#00bc8c'
 export const failVoteColor = '#e74c3c'
+
+export const specialEventColor = 'rgba(145, 61, 136, 1)'

@@ -1,10 +1,25 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/styles'
 
-import { EventState, Round } from '../../types'
+import {
+    EventState,
+    isInvestigationEvent,
+    isExecutionEvent,
+    isSpecialElectionEvent,
+    isPolicyPeekEvent,
+} from '../../types'
 
 import RoundCard from './RoundCard'
+import SpecialEventCard from './SpecialEventCard'
 
+function isSpecialEvent(state: EventState) {
+    return (
+        isInvestigationEvent(state) ||
+        isExecutionEvent(state) ||
+        isSpecialElectionEvent(state) ||
+        isPolicyPeekEvent(state)
+    )
+}
 
 const useStyles = makeStyles({
     container: {
@@ -26,39 +41,77 @@ const EventFeed: React.FC<Props> = ({ states }) => {
     const classes = useStyles({})
 
     const releventEvents = states.filter(
-        state => state.phase === 'secondLastVoteWithChancellor' || state.phase === 'failedVote' || state.phase === 'missionOutcome'
+        state => (
+            state.phase === 'secondLastVoteWithChancellor' ||
+            state.phase === 'failedVote' ||
+            state.phase === 'missionOutcome' ||
+            isSpecialEvent(state) 
+        )
     )
 
-    const getRounds = (states: EventState[]) => {
+    const getCards = (states: EventState[]) => {
         let isNewRound = true
-        const rounds: Round[] = []
+        let isNewSpecialElectionEvent = true
+        const cards: EventState[][] = []
 
         states.forEach((state) => {
-            if (state.phase !== 'missionOutcome' || !rounds.length) {
+            if (state.phase === 'secondLastVoteWithChancellor' || state.phase === 'failedVote' || !cards.length) {
                 if (isNewRound) {
-                    rounds.push([state])
+                    cards.push([state])
                 } else {
-                    rounds[rounds.length - 1].push(state)
+                    cards[cards.length - 1].push(state)
                 }
 
                 isNewRound = false
-            } else {
+            } else if (state.phase === 'missionOutcome') {
                 // is a missionOutcome = end of round
-                rounds[rounds.length - 1].push(state)
+                cards[cards.length - 1].push(state)
 
                 isNewRound = true
+                isNewSpecialElectionEvent = true
+            } else if (isInvestigationEvent(state) || isExecutionEvent(state) || isPolicyPeekEvent(state)) {
+                // must be a special event - always create new card
+                cards.push([state])
+
+                isNewRound = true
+            } else if (isSpecialElectionEvent(state)) {
+                if (isNewSpecialElectionEvent) {
+                    cards.push([state])
+                } else {
+                    cards[cards.length - 1].push(state)
+                }
+
+                isNewSpecialElectionEvent = false
             }
         })
 
-        return rounds
+        return cards
     }
+
+    const consolidateSpecialElectionEvents = (eventGroups: EventState[][]) => (
+        eventGroups.reduce((cards, eventGroup) => {
+            // for special elections we get an event each time the president changes their selection - we only want the last one
+            if (isSpecialElectionEvent(eventGroup[0])) {
+                return [...cards, [eventGroup[eventGroup.length - 1]]]
+            }
+
+            return [...cards, [...eventGroup]]
+        }, [] as EventState[][])
+    )
+
+    const cardEventGroups = consolidateSpecialElectionEvents(getCards(releventEvents))
+    
 
     return (
         <div className={classes.container}>
             {
-                getRounds(releventEvents).map((round, i) => (
-                    <RoundCard key={i} round={round} />
-                ))
+                cardEventGroups.map((eventGroup, i) => {
+                    if (isSpecialEvent(eventGroup[0])) {
+                        return <SpecialEventCard key={i} event={eventGroup[0]}/>
+                    }
+
+                    return <RoundCard key={i} round={eventGroup} />
+                })
             }
         </div>
     )
