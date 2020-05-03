@@ -36,30 +36,6 @@ const App: React.FC = () => (
               <br />
 
               <GameList />
-
-              <Card style={{ padding: '1rem', marginTop: '3rem' }}>
-                <Typography>Release notes (02/05/2020): v0.3.0</Typography>
-
-                <List>
-                  <ListItem>
-                    <Typography>Added previous game table</Typography>
-                  </ListItem>
-                  <ListItem>
-                    <Typography>Track unique games (previously sessions were tracked)</Typography>
-                  </ListItem>
-                </List>
-
-                <Typography>Release notes (27/04/2020): v0.2.0</Typography>
-
-                <List>
-                  <ListItem>
-                    <Typography>Added previous game data load. Just type "/gameId" in the url</Typography>
-                  </ListItem>
-                  <ListItem>
-                    <Typography>Refreshing browser mid game should no longer lose the previous game states</Typography>
-                  </ListItem>
-                </List>
-              </Card>
           </div>
         </Route>
       </Switch>
