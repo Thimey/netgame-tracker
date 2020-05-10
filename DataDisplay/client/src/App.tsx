@@ -30,6 +30,9 @@ const App: React.FC = () => (
           <div style={{ display: 'flex', flexDirection: 'column', margin: '16px' }}>
               <Typography color='textSecondary'>Ensure only ONE person is recording game.</Typography>
               <Typography color='textSecondary'>Type "/gameId" in url to view game</Typography>
+              <Typography color='textSecondary'>
+                <a href='https://meet.jit.si/YeaTheLahdsPokerAndHits' target='_blank'>Chat</a>
+              </Typography>
 
               <br />
               <Divider />
