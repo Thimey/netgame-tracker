@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { makeStyles } from '@material-ui/styles'
+import Button from '@material-ui/core/Button'
 
 import { EventState } from '../../../../types'
 import Vote from './Vote'
@@ -25,6 +26,11 @@ interface Props {
 
 const VoteRound: React.FC<Props> = ({ round }) => {
     const classes = useStyles({})
+    const [showVoting, setShowVoting] = useState<boolean>(false)
+
+    const toggleShowVoting = () => {
+        setShowVoting(!showVoting)
+    }
 
     const getChancellorsAndPresidents = () => {
         let isNewVoteRound = true
@@ -55,14 +61,20 @@ const VoteRound: React.FC<Props> = ({ round }) => {
 
     return (
         <div className={classes.voteRoundContainer}>
-            {votingRounds.map((round, index) => (
-                <Vote
-                    key={`voteRound${index + 1}`}
-                    votes={round.votes}
-                    president={presidents[index]}
-                    proposedChancellor={chancellors[index]}
-                />
-            ))}
+            {
+                showVoting && votingRounds.map((round, index) => (
+                    <Vote
+                        key={`voteRound${index + 1}`}
+                        votes={round.votes}
+                        president={presidents[index]}
+                        proposedChancellor={chancellors[index]}
+                    />
+                ))
+            }
+
+            <Button onClick={toggleShowVoting}>
+                {showVoting ? 'Hide voting' : 'Show voting'}
+            </Button>
         </div>
     )
 }
